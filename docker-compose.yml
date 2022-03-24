@@ -1,0 +1,13 @@
+version: "3"
+services:
+  postgres:
+    container_name: social-dev
+    image: postgres:alpine
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: development
+      POSTGRES_DB: social-dev
+      PGDATA: /var/lib/postgres
