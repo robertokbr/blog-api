@@ -1,0 +1,95 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id Int @id @default(autoincrement())
+  name String
+  image String?
+  email String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  
+  posts Posts[] 
+  comments Comments[]
+  postRates PostRates[]
+  commentRates CommentRates[]
+  candidatures PostCandidatures[]
+}
+
+model Posts {
+  id Int @id @default(autoincrement())
+  slug String @unique
+  image String?
+  link String?
+  title String
+  content String
+  participation Int?
+  availlablePositions Int
+  userId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  user Users? @relation(fields: [userId], references: [id])
+  comments Comments[]
+  rates PostRates[]
+  candidatures PostCandidatures[]
+}
+
+enum PostCandidatureStates {
+  ACCEPTED
+  DENIED
+  WAITING
+}
+
+model PostCandidatures {
+  id Int @id @default(autoincrement())
+  userId Int
+  postId Int
+  state  PostCandidatureStates @default(WAITING)
+
+  user Users? @relation(fields: [userId], references: [id])
+  post Posts? @relation(fields: [postId], references: [id])
+}
+
+model PostRates {  
+  id Int @id @default(autoincrement())
+  value Int
+  postId Int
+  userId Int
+
+  user Users? @relation(fields: [userId], references: [id])
+  post Posts? @relation(fields: [postId], references: [id])
+}
+
+model Comments {
+  id Int @id @default(autoincrement())
+  userId Int
+  postId Int
+  content String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  user Users? @relation(fields: [userId], references: [id])
+  post Posts? @relation(fields: [postId], references: [id])
+  rates CommentRates[]
+}
+
+model CommentRates {  
+  id Int @id @default(autoincrement())
+  value Int
+  commentId Int
+  userId Int
+
+  user Users? @relation(fields: [userId], references: [id])
+  comment Comments? @relation(fields: [commentId], references: [id])
+}
+
