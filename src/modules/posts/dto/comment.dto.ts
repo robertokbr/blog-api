@@ -1,14 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDate, IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
+import { DtoBase } from 'src/modules/common/base/dto.base';
 import { UserDto } from 'src/modules/users/dto/user.dto';
 import { PostRateDto } from './post-rate.dto';
 import { PostDto } from './post.dto';
 
-export class CommentDto {
-  @IsNumber()
-  @ApiProperty()
-  id: number;
-
+export class CommentDto extends DtoBase {
   @IsNumber()
   @ApiProperty()
   userId: number;
@@ -20,14 +17,6 @@ export class CommentDto {
   @IsString()
   @ApiProperty()
   content: string;
-
-  @IsDate()
-  @ApiProperty()
-  createdAt: Date;
-
-  @IsDate()
-  @ApiProperty()
-  updatedAt: Date;
 
   // Relations
   @ApiProperty()
