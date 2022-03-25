@@ -103,4 +103,17 @@ export class PostsService {
     // Prisma deal with enums in a differente way;
     return postCandidature as PostCandidatureDto;
   }
+
+  public async updatePostCandidature(
+    postCandidatureId: number,
+    createCandidatureDto: CreatePostCandidatureDto,
+  ): Promise<PostCandidatureDto> {
+    const postCandidature = await this.postCandidaturesRepository.update(
+      postCandidatureId,
+      createCandidatureDto,
+    );
+
+    // Prisma deal with enums in a differente way;
+    return postCandidature as PostCandidatureDto;
+  }
 }

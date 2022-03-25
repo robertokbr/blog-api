@@ -11,4 +11,16 @@ export class PostCandidaturesRepository {
       data: createPostCandidatureDto,
     });
   }
+
+  public async update(
+    id: number,
+    createPostCandidatureDto: CreatePostCandidatureDto,
+  ) {
+    return this.client.postCandidatures.update({
+      where: {
+        id,
+      },
+      data: createPostCandidatureDto,
+    });
+  }
 }

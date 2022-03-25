@@ -6,7 +6,6 @@ import {
   Patch,
   Param,
   Query,
-  Put,
 } from '@nestjs/common';
 import { PostsService } from '../services/posts.service';
 import { CreatePostDto } from '../dto/create-post.dto';
@@ -23,6 +22,8 @@ import { CreateCommentRateDto } from '../dto/create-comment-rate.dto';
 import { CommentRateDto } from '../dto/comment-rate.dto';
 import { UpdateCommentRateDto } from '../dto/update-comment-rate.dto';
 import { ApiResponse } from '@nestjs/swagger';
+import { PostCandidatureDto } from '../dto/post-candidature.dto';
+import { CreatePostCandidatureDto } from '../dto/create-post-candidature.dto';
 
 @Controller('posts')
 export class PostsController {
@@ -76,7 +77,7 @@ export class PostsController {
   @ApiResponse({
     type: PostRateDto,
   })
-  @Put('/rate/:postRateId')
+  @Patch('/rate/:postRateId')
   public async updatePostRate(
     @Param('postRateId') postRateId: number,
     @Body() updatePostRateDto: UpdatePostRateDto,
@@ -97,7 +98,7 @@ export class PostsController {
   @ApiResponse({
     type: CommentDto,
   })
-  @Put('/comment/:commentId')
+  @Patch('/comment/:commentId')
   public async updateComment(
     @Param('commentId') commentId: number,
     @Body() updateCommentDto: UpdateCommentDto,
@@ -118,7 +119,7 @@ export class PostsController {
   @ApiResponse({
     type: CommentRateDto,
   })
-  @Put('/comment/rate/:commentRateId')
+  @Patch('/comment/rate/:commentRateId')
   public async updateCommentRate(
     @Param('commentRateId') commentRateId: number,
     @Body() updateCommentRateDto: UpdateCommentRateDto,
@@ -126,6 +127,30 @@ export class PostsController {
     return this.postsService.updateCommentRate(
       commentRateId,
       updateCommentRateDto,
+    );
+  }
+
+  @ApiResponse({
+    type: PostCandidatureDto,
+  })
+  @Post('/candidature')
+  public async createPostCandidature(
+    @Body() createPostCandidatureDto: CreatePostCandidatureDto,
+  ): Promise<PostCandidatureDto> {
+    return this.postsService.createPostCandidature(createPostCandidatureDto);
+  }
+
+  @ApiResponse({
+    type: PostCandidatureDto,
+  })
+  @Patch('/candidature/:postCandidatureId')
+  public async updatePostCandidature(
+    @Param('postCandidatureId') postCandidatureId: number,
+    @Body() createPostCandidatureDto: CreatePostCandidatureDto,
+  ): Promise<PostCandidatureDto> {
+    return this.postsService.updatePostCandidature(
+      postCandidatureId,
+      createPostCandidatureDto,
     );
   }
 }
