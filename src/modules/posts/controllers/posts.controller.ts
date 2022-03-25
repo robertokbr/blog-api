@@ -22,26 +22,39 @@ import { UpdateCommentDto } from '../dto/update-comment.dto';
 import { CreateCommentRateDto } from '../dto/create-comment-rate.dto';
 import { CommentRateDto } from '../dto/comment-rate.dto';
 import { UpdateCommentRateDto } from '../dto/update-comment-rate.dto';
+import { ApiResponse } from '@nestjs/swagger';
 
 @Controller('posts')
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
+  @ApiResponse({
+    type: PostDto,
+  })
   @Post()
   create(@Body() createPostDto: CreatePostDto): Promise<PostDto> {
     return this.postsService.create(createPostDto);
   }
 
+  @ApiResponse({
+    type: [PostDto],
+  })
   @Get()
   findAll(@Query() findPostByQueryDto: FindPostByQueryDto): Promise<PostDto[]> {
     return this.postsService.findAll(findPostByQueryDto);
   }
 
+  @ApiResponse({
+    type: PostDto,
+  })
   @Get(':slug')
   findOne(@Param('slug') slug: string): Promise<PostDto> {
     return this.postsService.findOne(slug);
   }
 
+  @ApiResponse({
+    type: PostDto,
+  })
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -50,6 +63,9 @@ export class PostsController {
     return this.postsService.update(+id, updatePostDto);
   }
 
+  @ApiResponse({
+    type: PostRateDto,
+  })
   @Post('/rate')
   public async createPostRate(
     @Body() createPostRateDto: CreatePostRateDto,
@@ -57,6 +73,9 @@ export class PostsController {
     return this.postsService.createPostRate(createPostRateDto);
   }
 
+  @ApiResponse({
+    type: PostRateDto,
+  })
   @Put('/rate/:postRateId')
   public async updatePostRate(
     @Param('postRateId') postRateId: number,
@@ -65,6 +84,9 @@ export class PostsController {
     return this.postsService.updatePostRate(postRateId, updatePostRateDto);
   }
 
+  @ApiResponse({
+    type: CommentDto,
+  })
   @Post('/comment')
   public async createComment(
     @Body() createCommentDto: CreateCommentDto,
@@ -72,6 +94,9 @@ export class PostsController {
     return this.postsService.createComment(createCommentDto);
   }
 
+  @ApiResponse({
+    type: CommentDto,
+  })
   @Put('/comment/:commentId')
   public async updateComment(
     @Param('commentId') commentId: number,
@@ -80,6 +105,9 @@ export class PostsController {
     return this.postsService.updateComment(commentId, updateCommentDto);
   }
 
+  @ApiResponse({
+    type: CommentRateDto,
+  })
   @Post('/comment/rate')
   public async createCommentRate(
     @Body() createCommentRateDto: CreateCommentRateDto,
@@ -87,6 +115,9 @@ export class PostsController {
     return this.postsService.createCommentRate(createCommentRateDto);
   }
 
+  @ApiResponse({
+    type: CommentRateDto,
+  })
   @Put('/comment/rate/:commentRateId')
   public async updateCommentRate(
     @Param('commentRateId') commentRateId: number,
