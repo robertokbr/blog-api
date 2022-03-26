@@ -55,6 +55,8 @@ model PostCandidatures {
   userId Int
   postId Int
   state  PostCandidatureStates @default(WAITING)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 
   user Users? @relation(fields: [userId], references: [id])
   post Posts? @relation(fields: [postId], references: [id])
@@ -93,3 +95,21 @@ model CommentRates {
   comment Comments? @relation(fields: [commentId], references: [id])
 }
 
+enum AdType {
+  POST
+  COMMENT
+  ASIDE
+}
+
+model Ads {
+  id Int @id @default(autoincrement())
+  title String
+  description String
+  image String
+  link String
+  type AdType
+  isAvailable Boolean
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
