@@ -40,15 +40,15 @@ export class PostDto extends DtoBase {
   userId: number;
 
   // Relations
-  @ApiProperty()
+  @ApiProperty({ type: UserDto })
   user?: UserDto;
 
-  @ApiProperty()
-  comments?: CommentDto[];
+  @ApiProperty({ type: [CommentDto] })
+  comments?: CommentDto[] = [];
 
-  @ApiProperty()
-  rates?: PostRateDto[];
+  @ApiProperty({ type: [PostRateDto] })
+  rates?: PostRateDto[] = [];
 
-  @ApiProperty()
-  joiners?: PostCandidatureDto[];
+  @ApiProperty({ type: [PostCandidatureDto] })
+  candidatures?: PostCandidatureDto[] = [];
 }
