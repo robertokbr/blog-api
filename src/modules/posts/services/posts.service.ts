@@ -37,11 +37,15 @@ export class PostsService {
   public async findAll(
     findPostByQueryDto: FindPostByQueryDto,
   ): Promise<PostDto[]> {
-    return this.postsRepository.findAll(findPostByQueryDto);
+    const post = await this.postsRepository.findAll(findPostByQueryDto);
+
+    return post as PostDto[];
   }
 
   public async findOne(slug: string): Promise<PostDto> {
-    return this.postsRepository.findBySlug(slug);
+    const post = await this.postsRepository.findBySlug(slug);
+
+    return post as PostDto;
   }
 
   public async update(
