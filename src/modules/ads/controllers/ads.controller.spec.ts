@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { AdsService } from '../services/ads.service';
 import { AdsController } from './ads.controller';
-import { AdsService } from './ads.service';
 
 describe('AdsController', () => {
   let controller: AdsController;
