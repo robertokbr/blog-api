@@ -9,6 +9,6 @@ export class FindPostByQueryDto extends PartialType(
     'user',
     'comments',
     'rates',
-    'joiners',
+    'candidatures',
   ]),
 ) {}

@@ -9,5 +9,5 @@ export class CreatePostDto extends OmitType(PostDto, [
   'user',
   'comments',
   'rates',
-  'joiners',
+  'candidatures',
 ]) {}

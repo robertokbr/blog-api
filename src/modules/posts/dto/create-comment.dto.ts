@@ -7,5 +7,4 @@ export class CreateCommentDto extends OmitType(CommentDto, [
   'id',
   'user',
   'rates',
-  'post',
 ]) {}
