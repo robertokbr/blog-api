@@ -13,6 +13,9 @@ export class PostCandidatureDto extends DtoBase {
   postId: number;
 
   @IsEnum(PostCandidatureStates)
-  @ApiProperty({ enum: PostCandidatureStates })
-  state: PostCandidatureStates;
+  @ApiProperty({
+    enum: PostCandidatureStates,
+    default: PostCandidatureStates.WAITING,
+  })
+  state: PostCandidatureStates = PostCandidatureStates.WAITING;
 }
