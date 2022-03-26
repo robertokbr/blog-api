@@ -10,7 +10,7 @@ export class PostsRepository {
   constructor(private readonly client: PrismaClient) {}
 
   public async create(createPostDto: CreatePostDto) {
-    let slug = createPostDto.title.split(' ').join('-');
+    let slug = createPostDto.title.split(' ').join('-').toLowerCase();
 
     const foundBySlug = await this.client.posts.findFirst({
       where: {
