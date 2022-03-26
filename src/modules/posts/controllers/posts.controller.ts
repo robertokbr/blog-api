@@ -21,10 +21,11 @@ import { UpdateCommentDto } from '../dto/update-comment.dto';
 import { CreateCommentRateDto } from '../dto/create-comment-rate.dto';
 import { CommentRateDto } from '../dto/comment-rate.dto';
 import { UpdateCommentRateDto } from '../dto/update-comment-rate.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PostCandidatureDto } from '../dto/post-candidature.dto';
 import { CreatePostCandidatureDto } from '../dto/create-post-candidature.dto';
 
+@ApiTags('posts')
 @Controller('posts')
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
