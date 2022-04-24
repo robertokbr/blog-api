@@ -10,11 +10,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum AccountPermissions {
+  USER
+  ADMIN
+}
+
 model Users {
   id Int @id @default(autoincrement())
   name String
   image String?
   email String @unique
+  github  String?
+  permission AccountPermissions @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
   
@@ -32,8 +39,9 @@ model Posts {
   link String?
   title String
   content String
+  description String
   participation Int?
-  availlablePositions Int
+  availlablePositions Int?
   userId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
