@@ -104,7 +104,6 @@ export class PostsService {
       createCandidatureDto,
     );
 
-    // Prisma deal with enums in a differente way;
     return postCandidature as PostCandidatureDto;
   }
 
@@ -117,7 +116,6 @@ export class PostsService {
       createCandidatureDto,
     );
 
-    // Prisma deal with enums in a differente way;
     return postCandidature as PostCandidatureDto;
   }
 }

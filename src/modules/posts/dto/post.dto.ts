@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsString } from 'class-validator';
-import { DtoBase } from 'src/modules/common/base/dto.base';
-import { UserDto } from 'src/modules/users/dto/user.dto';
+import { DtoBase } from '../../../modules/common/base/dto.base';
+import { UserDto } from '../../../modules/users/dto/user.dto';
 import { CommentDto } from './comment.dto';
 import { PostCandidatureDto } from './post-candidature.dto';
 import { PostRateDto } from './post-rate.dto';
@@ -31,11 +31,15 @@ export class PostDto extends DtoBase {
   @ApiProperty()
   content: string;
 
+  @IsString()
+  @ApiProperty()
+  description?: string;
+
   @IsNumber()
   @ApiProperty()
-  availlablePositions: number;
+  availlablePositions?: number;
 
-  @IsString()
+  @IsNumber()
   @ApiProperty()
   userId: number;
 

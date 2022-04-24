@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
 import { PostsController } from './controllers/posts.controller';
 import { CommentRatesRepository } from './repositories/comment-rates.repository';
 import { CommentsRepository } from './repositories/comments.repository';
@@ -17,7 +16,6 @@ import { PostsService } from './services/posts.service';
     CommentRatesRepository,
     CommentsRepository,
     PostCandidaturesRepository,
-    PrismaClient,
   ],
 })
 export class PostsModule {}

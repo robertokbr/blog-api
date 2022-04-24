@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsEnum, IsString } from 'class-validator';
-import { DtoBase } from 'src/modules/common/base/dto.base';
+import { DtoBase } from '../../../modules/common/base/dto.base';
 import { AdType } from '../enums/ad-type.enum';
 
 export class AdDto extends DtoBase {

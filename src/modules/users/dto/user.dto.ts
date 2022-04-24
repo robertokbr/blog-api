@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
-import { DtoBase } from 'src/modules/common/base/dto.base';
+import { DtoBase } from '../../../modules/common/base/dto.base';
 
 export class UserDto extends DtoBase {
   @IsString()

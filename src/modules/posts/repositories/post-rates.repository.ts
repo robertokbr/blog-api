@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
+import { PrismaService } from '../../../infra/prisma/prisma.service';
 import { CreatePostRateDto } from '../dto/create-post-rate.dto';
 import { UpdatePostRateDto } from '../dto/update-post-rate.dto';
 
 @Injectable()
 export class PostRatesRepository {
-  constructor(private readonly client: PrismaClient) {}
+  constructor(private readonly client: PrismaService) {}
 
   public async create(createPostRateDto: CreatePostRateDto) {
     return this.client.postRates.create({

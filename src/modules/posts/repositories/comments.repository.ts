@@ -1,9 +1,9 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaService } from '../../../infra/prisma/prisma.service';
 import { CreateCommentDto } from '../dto/create-comment.dto';
 import { UpdateCommentDto } from '../dto/update-comment.dto';
 
 export class CommentsRepository {
-  constructor(private readonly client: PrismaClient) {}
+  constructor(private readonly client: PrismaService) {}
 
   public async create(createCommentDto: CreateCommentDto) {
     return this.client.comments.create({
