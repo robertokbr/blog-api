@@ -1,9 +1,11 @@
 import { Logger } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
+import { PrismaService } from '../../../infra/prisma/prisma.service';
 
 export class PostsSeed {
-  static async run(client: PrismaClient) {
-    Logger.log('Running posts seed... 🌱', 'PrismaSeeds');
+  private static readonly logger = new Logger(PostsSeed.name);
+
+  static async run(client: PrismaService) {
+    this.logger.log('Running posts seed... 🌱');
 
     try {
       await client.posts.create({
