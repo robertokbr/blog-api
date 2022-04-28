@@ -20,7 +20,7 @@ model Users {
   name String
   image String?
   email String @unique
-  github  String?
+  github  String? @unique
   permission AccountPermissions @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
@@ -39,17 +39,28 @@ model Posts {
   link String?
   title String
   content String
-  description String
+  description String?
   participation Int?
   availlablePositions Int?
   userId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
-  user Users? @relation(fields: [userId], references: [id])
+  user Users? @relation(fields: [userId], references: [id], onDelete: Cascade)
   comments Comments[]
   rates PostRates[]
   candidatures PostCandidatures[]
+  tags PostTags[]
+}
+
+model PostTags {
+  id Int @id @default(autoincrement())
+  name String
+  postId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  post Posts @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
 
 enum PostCandidatureStates {
@@ -66,8 +77,8 @@ model PostCandidatures {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
-  user Users? @relation(fields: [userId], references: [id])
-  post Posts? @relation(fields: [postId], references: [id])
+  user Users? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Posts? @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
 
 model PostRates {  
@@ -76,8 +87,8 @@ model PostRates {
   postId Int
   userId Int
 
-  user Users? @relation(fields: [userId], references: [id])
-  post Posts? @relation(fields: [postId], references: [id])
+  user Users? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Posts? @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
 
 model Comments {
@@ -88,8 +99,8 @@ model Comments {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
-  user Users? @relation(fields: [userId], references: [id])
-  post Posts? @relation(fields: [postId], references: [id])
+  user Users? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Posts? @relation(fields: [postId], references: [id], onDelete: Cascade)
   rates CommentRates[]
 }
 
@@ -99,8 +110,8 @@ model CommentRates {
   commentId Int
   userId Int
 
-  user Users? @relation(fields: [userId], references: [id])
-  comment Comments? @relation(fields: [commentId], references: [id])
+  user Users? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comment Comments? @relation(fields: [commentId], references: [id], onDelete: Cascade)
 }
 
 enum AdType {
