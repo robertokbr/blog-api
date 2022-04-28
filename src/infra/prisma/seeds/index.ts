@@ -5,6 +5,9 @@ import { PostsSeed } from './02-posts.seed';
 const client = new PrismaService();
 const seeds = [UsersSeed, PostsSeed];
 
-(async () => {
-  await Promise.all(seeds.map((seed) => seed.run(client)));
+(() => {
+  seeds.reduce(async (previousSeed, nextSeed) => {
+    await previousSeed;
+    return nextSeed.run(client);
+  }, Promise.resolve());
 })();
