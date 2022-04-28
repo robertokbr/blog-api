@@ -30,7 +30,7 @@ export class UsersController {
     type: UserDto,
   })
   @Get()
-  findAll(@Query() userDto: Partial<UserDto>): Promise<UserDto> {
+  findAll(@Query() userDto: Partial<UserDto>): Promise<UserDto[]> {
     return this.usersService.findAll(userDto);
   }
 

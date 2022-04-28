@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Query,
+  Delete,
 } from '@nestjs/common';
 import { PostsService } from '../services/posts.service';
 import { CreatePostDto } from '../dto/create-post.dto';
@@ -24,6 +25,7 @@ import { UpdateCommentRateDto } from '../dto/update-comment-rate.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PostCandidatureDto } from '../dto/post-candidature.dto';
 import { CreatePostCandidatureDto } from '../dto/create-post-candidature.dto';
+import { PostTagDto } from '../dto/post-tag.dto';
 
 @ApiTags('posts')
 @Controller('posts')
@@ -49,7 +51,7 @@ export class PostsController {
   @ApiResponse({
     type: PostDto,
   })
-  @Get(':slug')
+  @Get('/bySlug/:slug')
   findOne(@Param('slug') slug: string): Promise<PostDto> {
     return this.postsService.findOne(slug);
   }
@@ -63,6 +65,14 @@ export class PostsController {
     @Body() updatePostDto: UpdatePostDto,
   ): Promise<PostDto> {
     return this.postsService.update(+id, updatePostDto);
+  }
+
+  @ApiResponse({
+    type: PostDto,
+  })
+  @Delete(':id')
+  delete(@Param('id') id: string): Promise<PostDto> {
+    return this.postsService.delete(+id);
   }
 
   @ApiResponse({
@@ -80,10 +90,10 @@ export class PostsController {
   })
   @Patch('/rate/:postRateId')
   public async updatePostRate(
-    @Param('postRateId') postRateId: number,
+    @Param('postRateId') postRateId: string,
     @Body() updatePostRateDto: UpdatePostRateDto,
   ): Promise<PostRateDto> {
-    return this.postsService.updatePostRate(postRateId, updatePostRateDto);
+    return this.postsService.updatePostRate(+postRateId, updatePostRateDto);
   }
 
   @ApiResponse({
@@ -99,12 +109,22 @@ export class PostsController {
   @ApiResponse({
     type: CommentDto,
   })
+  @Delete('/comment/:commentId')
+  public async deleteComment(
+    @Param('commentId') commentId: string,
+  ): Promise<CommentDto> {
+    return this.postsService.deleteComment(+commentId);
+  }
+
+  @ApiResponse({
+    type: CommentDto,
+  })
   @Patch('/comment/:commentId')
   public async updateComment(
-    @Param('commentId') commentId: number,
+    @Param('commentId') commentId: string,
     @Body() updateCommentDto: UpdateCommentDto,
   ): Promise<CommentDto> {
-    return this.postsService.updateComment(commentId, updateCommentDto);
+    return this.postsService.updateComment(+commentId, updateCommentDto);
   }
 
   @ApiResponse({
@@ -122,11 +142,11 @@ export class PostsController {
   })
   @Patch('/comment/rate/:commentRateId')
   public async updateCommentRate(
-    @Param('commentRateId') commentRateId: number,
+    @Param('commentRateId') commentRateId: string,
     @Body() updateCommentRateDto: UpdateCommentRateDto,
   ): Promise<CommentRateDto> {
     return this.postsService.updateCommentRate(
-      commentRateId,
+      +commentRateId,
       updateCommentRateDto,
     );
   }
@@ -146,12 +166,20 @@ export class PostsController {
   })
   @Patch('/candidature/:postCandidatureId')
   public async updatePostCandidature(
-    @Param('postCandidatureId') postCandidatureId: number,
+    @Param('postCandidatureId') postCandidatureId: string,
     @Body() createPostCandidatureDto: CreatePostCandidatureDto,
   ): Promise<PostCandidatureDto> {
     return this.postsService.updatePostCandidature(
-      postCandidatureId,
+      +postCandidatureId,
       createPostCandidatureDto,
     );
+  }
+
+  @ApiResponse({
+    type: [PostTagDto],
+  })
+  @Get('/tags')
+  findAllPostTags(): Promise<PostTagDto[]> {
+    return this.postsService.findAllPostTags();
   }
 }

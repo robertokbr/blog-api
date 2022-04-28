@@ -8,19 +8,25 @@ import { UsersRepository } from '../repositories/users.repository';
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
-  create(createUserDto: CreateUserDto) {
-    return this.usersRepository.create(createUserDto);
+  async create(createUserDto: CreateUserDto) {
+    const user = await this.usersRepository.create(createUserDto);
+
+    return user as UserDto;
   }
 
-  findAll(query: Partial<UserDto>) {
+  async findAll(query: Partial<UserDto>): Promise<UserDto[]> {
     return this.usersRepository.findAll(query);
   }
 
-  findOne(email: string) {
-    return this.usersRepository.findByEmail(email);
+  async findOne(email: string): Promise<UserDto> {
+    const user = await this.usersRepository.findByEmail(email);
+
+    return user as UserDto;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return this.usersRepository.update(id, updateUserDto);
+  async update(id: number, updateUserDto: UpdateUserDto): Promise<UserDto> {
+    const user = await this.usersRepository.update(id, updateUserDto);
+
+    return user as UserDto;
   }
 }

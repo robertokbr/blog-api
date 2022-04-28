@@ -1,14 +1,19 @@
-import { OmitType, PartialType } from '@nestjs/swagger';
-import { PostDto } from './post.dto';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
-export class FindPostByQueryDto extends PartialType(
-  OmitType(PostDto, [
-    'id',
-    'createdAt',
-    'updatedAt',
-    'user',
-    'comments',
-    'rates',
-    'candidatures',
-  ]),
-) {}
+export class FindPostByQueryDto {
+  @IsString()
+  @IsOptional()
+  @ApiProperty({ required: false })
+  tag?: string;
+
+  @IsString()
+  @IsOptional()
+  @ApiProperty({ required: false })
+  title?: string;
+
+  @IsNumber()
+  @IsOptional()
+  @ApiProperty({ required: false })
+  userId?: number;
+}

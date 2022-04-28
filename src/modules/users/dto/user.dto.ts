@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsEnum, IsString } from 'class-validator';
 import { DtoBase } from '../../../modules/common/base/dto.base';
+import { AccountPermissions } from '../enums/account-permissions.enum';
 
 export class UserDto extends DtoBase {
   @IsString()
@@ -8,10 +9,18 @@ export class UserDto extends DtoBase {
   name: string;
 
   @IsString()
-  @ApiProperty()
-  image: string;
+  @ApiProperty({ required: false })
+  image?: string;
 
   @IsString()
   @ApiProperty()
   email: string;
+
+  @IsEnum(AccountPermissions)
+  @ApiProperty({ enum: AccountPermissions })
+  permission: AccountPermissions;
+
+  @IsString()
+  @ApiProperty({ required: false })
+  github?: string;
 }

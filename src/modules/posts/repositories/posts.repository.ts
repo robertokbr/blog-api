@@ -9,9 +9,8 @@ import { FindPostByQueryDto } from '../dto/find-post-by-query.dto';
 export class PostsRepository {
   constructor(private readonly client: PrismaService) {}
 
-  public async create(createPostDto: CreatePostDto) {
-    let slug = createPostDto.title.split(' ').join('-').toLowerCase();
-    let description: string = createPostDto.description;
+  public async create({ tags, ...dto }: CreatePostDto) {
+    let slug = dto.title.split(' ').join('-').toLowerCase();
 
     const foundBySlug = await this.client.posts.findFirst({
       where: { slug },
@@ -21,20 +20,31 @@ export class PostsRepository {
       slug += randomBytes(3).toString('hex');
     }
 
-    if (createPostDto.description) {
-      const [fp, sp, tp] = createPostDto.content.split('\n');
-      description = `${fp}\n${sp}\n${tp}`;
-    }
-
     return this.client.posts.create({
-      data: { ...createPostDto, slug, userId: 1, description },
+      data: {
+        ...dto,
+        slug,
+        ...(tags && {
+          tags: { createMany: { data: tags.map((tag) => ({ name: tag })) } },
+        }),
+      },
     });
   }
 
   public async update(id: number, data: UpdatePostDto) {
+    const { tags, ...dto } = data;
+
     return this.client.posts.update({
       where: { id },
-      data,
+      data: {
+        ...dto,
+        tags: {
+          deleteMany: tags.map((tag) => ({ name: tag })),
+          createMany: {
+            data: tags.map((tag) => ({ name: tag })),
+          },
+        },
+      },
     });
   }
 
@@ -44,6 +54,7 @@ export class PostsRepository {
       include: {
         user: true,
         rates: true,
+        tags: true,
         comments: {
           include: {
             rates: true,
@@ -60,15 +71,35 @@ export class PostsRepository {
   }
 
   public async findAll(query: FindPostByQueryDto) {
+    const { tag, ...dto } = query;
     return this.client.posts.findMany({
       where: {
-        ...query,
+        ...dto,
+        ...(tag && {
+          tags: {
+            some: {
+              name: tag,
+            },
+          },
+        }),
       },
       include: {
         user: true,
         rates: true,
         comments: true,
         candidatures: true,
+        tags: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+  }
+
+  public async delete(id: number) {
+    return this.client.posts.delete({
+      where: {
+        id,
       },
     });
   }

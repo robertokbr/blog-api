@@ -19,6 +19,8 @@ import { CommentRatesRepository } from '../repositories/comment-rates.repository
 import { CommentsRepository } from '../repositories/comments.repository';
 import { PostRatesRepository } from '../repositories/post-rates.repository';
 import { PostsRepository } from '../repositories/posts.repository';
+import { PostTagsRepository } from '../repositories/post-tags.repository';
+import { PostTagDto } from '../dto/post-tag.dto';
 
 @Injectable()
 export class PostsService {
@@ -28,9 +30,18 @@ export class PostsService {
     private readonly postRatesRepository: PostRatesRepository,
     private readonly commentRatesRepository: CommentRatesRepository,
     private readonly postCandidaturesRepository: PostCandidaturesRepository,
+    private readonly postTagsRepository: PostTagsRepository,
   ) {}
 
   public async create(createPostDto: CreatePostDto): Promise<PostDto> {
+    createPostDto.description = createPostDto.content
+      .replace(/#+\s/gi, '')
+      .replace(/\n{2,}/gi, '\n')
+      .trim()
+      .slice(0, 400);
+
+    console.log({ des: createPostDto.description });
+
     return this.postsRepository.create(createPostDto);
   }
 
@@ -55,6 +66,10 @@ export class PostsService {
     return this.postsRepository.update(id, updatePostDto);
   }
 
+  public async delete(id: number): Promise<PostDto> {
+    return this.postsRepository.delete(id);
+  }
+
   public async createPostRate(
     createPostRateDto: CreatePostRateDto,
   ): Promise<PostRateDto> {
@@ -66,6 +81,10 @@ export class PostsService {
     updatePostRateDto: UpdatePostRateDto,
   ): Promise<PostRateDto> {
     return this.postRatesRepository.update(postRateId, updatePostRateDto);
+  }
+
+  public async deleteComment(commentId: number): Promise<CommentDto> {
+    return this.commentsRepository.delete(commentId);
   }
 
   public async createComment(
@@ -117,5 +136,21 @@ export class PostsService {
     );
 
     return postCandidature as PostCandidatureDto;
+  }
+
+  public async findAllPostTags(): Promise<PostTagDto[]> {
+    const tags = await this.postTagsRepository.findAll();
+
+    const names = tags.map((tag) => tag.name);
+
+    const filteredNames = new Set(names);
+
+    const filteredTags = [...filteredNames].map((tag) => {
+      const ft = new PostTagDto();
+      ft.name = tag;
+      return ft;
+    });
+
+    return [...filteredTags];
   }
 }
