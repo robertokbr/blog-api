@@ -86,17 +86,6 @@ export class PostsController {
   }
 
   @ApiResponse({
-    type: PostRateDto,
-  })
-  @Patch('/rate/:postRateId')
-  public async updatePostRate(
-    @Param('postRateId') postRateId: string,
-    @Body() updatePostRateDto: UpdatePostRateDto,
-  ): Promise<PostRateDto> {
-    return this.postsService.updatePostRate(+postRateId, updatePostRateDto);
-  }
-
-  @ApiResponse({
     type: CommentDto,
   })
   @Post('/comment')
@@ -135,20 +124,6 @@ export class PostsController {
     @Body() createCommentRateDto: CreateCommentRateDto,
   ): Promise<CommentRateDto> {
     return this.postsService.createCommentRate(createCommentRateDto);
-  }
-
-  @ApiResponse({
-    type: CommentRateDto,
-  })
-  @Patch('/comment/rate/:commentRateId')
-  public async updateCommentRate(
-    @Param('commentRateId') commentRateId: string,
-    @Body() updateCommentRateDto: UpdateCommentRateDto,
-  ): Promise<CommentRateDto> {
-    return this.postsService.updateCommentRate(
-      +commentRateId,
-      updateCommentRateDto,
-    );
   }
 
   @ApiResponse({

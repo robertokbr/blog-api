@@ -13,6 +13,15 @@ export class CommentRatesRepository {
     });
   }
 
+  public async findByUserIdAndCommentId(userId: number, commentId: number) {
+    return this.client.commentRates.findFirst({
+      where: {  
+        userId,
+        commentId,
+      }
+    });
+  }
+
   public async update(id: number, data: UpdateCommentRateDto) {
     return this.client.commentRates.update({
       where: { id },

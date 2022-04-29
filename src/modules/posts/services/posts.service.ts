@@ -10,9 +10,7 @@ import { FindPostByQueryDto } from '../dto/find-post-by-query.dto';
 import { PostCandidatureDto } from '../dto/post-candidature.dto';
 import { PostRateDto } from '../dto/post-rate.dto';
 import { PostDto } from '../dto/post.dto';
-import { UpdateCommentRateDto } from '../dto/update-comment-rate.dto';
 import { UpdateCommentDto } from '../dto/update-comment.dto';
-import { UpdatePostRateDto } from '../dto/update-post-rate.dto';
 import { UpdatePostDto } from '../dto/update-post.dto';
 import { PostCandidaturesRepository } from '../repositories/post-candidatures.repository';
 import { CommentRatesRepository } from '../repositories/comment-rates.repository';
@@ -70,17 +68,25 @@ export class PostsService {
     return this.postsRepository.delete(id);
   }
 
-  public async createPostRate(
-    createPostRateDto: CreatePostRateDto,
-  ): Promise<PostRateDto> {
-    return this.postRatesRepository.create(createPostRateDto);
-  }
+  public async createPostRate({
+    postId,
+    userId,
+    value,
+  }: CreatePostRateDto): Promise<PostRateDto> {
+    const postRate = await this.postRatesRepository.findByUserIdAndPostId(
+      userId,
+      postId,
+    );
 
-  public async updatePostRate(
-    postRateId: number,
-    updatePostRateDto: UpdatePostRateDto,
-  ): Promise<PostRateDto> {
-    return this.postRatesRepository.update(postRateId, updatePostRateDto);
+    if (postRate) {
+      return this.postRatesRepository.update(postRate.id, {
+        postId,
+        userId,
+        value,
+      }); 
+    }
+
+    return this.postRatesRepository.create({ postId, userId, value });
   }
 
   public async deleteComment(commentId: number): Promise<CommentDto> {
@@ -100,20 +106,25 @@ export class PostsService {
     return this.commentsRepository.update(commentId, updateCommentDto);
   }
 
-  public async createCommentRate(
-    createCommentRateDto: CreateCommentRateDto,
-  ): Promise<CommentRateDto> {
-    return this.commentRatesRepository.create(createCommentRateDto);
-  }
-
-  public async updateCommentRate(
-    commentRateId: number,
-    updateCommentRateDto: UpdateCommentRateDto,
-  ): Promise<CommentRateDto> {
-    return this.commentRatesRepository.update(
-      commentRateId,
-      updateCommentRateDto,
+  public async createCommentRate({
+    commentId,
+    userId,
+    value     
+  }: CreateCommentRateDto): Promise<CommentRateDto> {
+    const commentRate = await this.commentRatesRepository.findByUserIdAndCommentId(
+      userId,
+      commentId,
     );
+
+    if (commentRate) {
+      return this.commentRatesRepository.update(commentRate.id, {
+        commentId,
+        userId,
+        value,
+      });
+    }
+
+    return this.commentRatesRepository.create({ commentId, userId, value });
   }
 
   public async createPostCandidature(

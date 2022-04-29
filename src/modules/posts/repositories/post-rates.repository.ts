@@ -13,6 +13,15 @@ export class PostRatesRepository {
     });
   }
 
+  public async findByUserIdAndPostId(userId: number, postId: number) {
+    return this.client.postRates.findFirst({
+      where: {
+        userId,
+        postId,
+      }
+    });
+  }
+
   public async update(id: number, data: UpdatePostRateDto) {
     return this.client.postRates.update({
       where: { id },
