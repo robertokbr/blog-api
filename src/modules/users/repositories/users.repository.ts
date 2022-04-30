@@ -28,8 +28,10 @@ export class UsersRepository {
   }
 
   public async findAll(query: Partial<UserDto>) {
-    return this.findAll({
-      ...query,
+    return this.client.users.findMany({
+      where: {
+        ...query,
+      },
     });
   }
 }

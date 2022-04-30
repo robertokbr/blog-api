@@ -15,7 +15,7 @@ export class UsersService {
   }
 
   async findAll(query: Partial<UserDto>): Promise<UserDto[]> {
-    return this.usersRepository.findAll(query);
+    return this.usersRepository.findAll(query) as Promise<UserDto[]>;
   }
 
   async findOne(email: string): Promise<UserDto> {
