@@ -5,6 +5,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { swaggerConfig } from './infra/configs/swagger.config';
 import { validationPripeConfig } from './infra/configs/validation-pipe.config';
 import { apiConfig } from './infra/configs/api.config';
+import 'dotenv/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

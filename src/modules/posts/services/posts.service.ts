@@ -83,7 +83,7 @@ export class PostsService {
         postId,
         userId,
         value,
-      }); 
+      });
     }
 
     return this.postRatesRepository.create({ postId, userId, value });
@@ -109,12 +109,13 @@ export class PostsService {
   public async createCommentRate({
     commentId,
     userId,
-    value     
+    value,
   }: CreateCommentRateDto): Promise<CommentRateDto> {
-    const commentRate = await this.commentRatesRepository.findByUserIdAndCommentId(
-      userId,
-      commentId,
-    );
+    const commentRate =
+      await this.commentRatesRepository.findByUserIdAndCommentId(
+        userId,
+        commentId,
+      );
 
     if (commentRate) {
       return this.commentRatesRepository.update(commentRate.id, {
@@ -158,7 +159,7 @@ export class PostsService {
 
     const filteredTags = [...filteredNames].map((tag) => {
       const ft = new PostTagDto();
-      ft.name = tag;
+      Object.assign(ft, { name: tag });
       return ft;
     });
 

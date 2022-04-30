@@ -1,5 +1,5 @@
 import { Logger } from '@nestjs/common';
-import { AccountPermissions } from '@prisma/client';
+import { AccountPermissions } from '../../../modules/users/enums/account-permissions.enum';
 import { PrismaService } from '../../../infra/prisma/prisma.service';
 
 export class UsersSeed {
