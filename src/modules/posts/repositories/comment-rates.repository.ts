@@ -15,10 +15,10 @@ export class CommentRatesRepository {
 
   public async findByUserIdAndCommentId(userId: number, commentId: number) {
     return this.client.commentRates.findFirst({
-      where: {  
+      where: {
         userId,
         commentId,
-      }
+      },
     });
   }
 

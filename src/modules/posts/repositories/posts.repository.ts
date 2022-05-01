@@ -78,10 +78,50 @@ export class PostsRepository {
         ...(tag && {
           tags: {
             some: {
-              name: tag,
+              name: {
+                contains: tag,
+                mode: 'insensitive',
+              },
             },
           },
         }),
+      },
+      include: {
+        user: true,
+        rates: true,
+        comments: true,
+        candidatures: true,
+        tags: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+  }
+
+  public async findByText(text: string) {
+    return this.client.posts.findMany({
+      where: {
+        OR: [
+          {
+            title: {
+              contains: text,
+              mode: 'insensitive',
+            },
+          },
+          {
+            description: {
+              contains: text,
+              mode: 'insensitive',
+            },
+          },
+          {
+            content: {
+              contains: text,
+              mode: 'insensitive',
+            },
+          },
+        ],
       },
       include: {
         user: true,

@@ -43,9 +43,35 @@ export class PostsService {
     return this.postsRepository.create(createPostDto);
   }
 
+  private async findAllUserRatedPost({
+    rateValue,
+    userId,
+  }: Pick<FindPostByQueryDto, 'userId' | 'rateValue'>) {
+    const posts = await this.postRatesRepository.findUserRatedPosts({
+      userId,
+      rateValue,
+    });
+
+    return posts.map((post) => post.post as PostDto);
+  }
+
+  private async findByTextSearch(text: string) {
+    return this.postsRepository.findByText(text);
+  }
+
   public async findAll(
     findPostByQueryDto: FindPostByQueryDto,
   ): Promise<PostDto[]> {
+    const { userId, rateValue, input } = findPostByQueryDto;
+
+    if (userId && rateValue) {
+      return this.findAllUserRatedPost({ rateValue, userId });
+    }
+
+    if (input) {
+      return this.findByTextSearch(input) as Promise<PostDto[]>;
+    }
+
     const post = await this.postsRepository.findAll(findPostByQueryDto);
 
     return post as PostDto[];
