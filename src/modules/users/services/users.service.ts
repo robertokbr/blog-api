@@ -29,4 +29,8 @@ export class UsersService {
 
     return user as UserDto;
   }
+
+  async delete(id: number) {
+    await this.usersRepository.delete(id);
+  }
 }

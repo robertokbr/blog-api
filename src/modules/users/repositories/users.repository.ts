@@ -34,4 +34,12 @@ export class UsersRepository {
       },
     });
   }
+
+  public async delete(id: number) {
+    return this.client.users.delete({
+      where: {
+        id,
+      },
+    });
+  }
 }

@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Query,
+  Delete,
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from '../dto/create-user.dto';
@@ -51,5 +52,13 @@ export class UsersController {
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<UserDto> {
     return this.usersService.update(+id, updateUserDto);
+  }
+
+  @ApiResponse({
+    type: UserDto,
+  })
+  @Delete(':id')
+  delete(@Param('id') id: string): Promise<void> {
+    return this.usersService.delete(+id);
   }
 }
