@@ -18,10 +18,10 @@ export class FindPostByQueryDto {
   @ApiProperty({ required: false })
   userId?: number;
 
-  @IsEnum(PostRateValues)
+  @IsNumber()
   @IsOptional()
   @ApiProperty({ required: false })
-  rateValue?: PostRateValues;
+  rateValue?: number;
 
   @IsString()
   @IsOptional()
