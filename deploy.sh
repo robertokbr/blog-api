@@ -1,0 +1,1 @@
+git fetch && git pull && yarn build && yarn pm2 stop default && yarn pm2 delete default && yarn pm2 start dist/main.js
