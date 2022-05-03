@@ -41,7 +41,7 @@ export class PostsRepository {
         tags: {
           deleteMany: { postId: id },
           createMany: {
-            data: tags.map((tag) => ({ name: tag })),
+            data: tags?.map((tag) => ({ name: tag })),
           },
         },
       },
