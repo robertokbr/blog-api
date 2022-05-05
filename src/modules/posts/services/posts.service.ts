@@ -32,14 +32,6 @@ export class PostsService {
   ) {}
 
   public async create(createPostDto: CreatePostDto): Promise<PostDto> {
-    createPostDto.description = createPostDto.content
-      .replace(/#+\s/gi, '')
-      .replace(/\n{2,}/gi, '\n')
-      .trim()
-      .slice(0, 400);
-
-    console.log({ des: createPostDto.description });
-
     return this.postsRepository.create(createPostDto);
   }
 

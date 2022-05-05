@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../../infra/prisma/prisma.service';
 import { CreatePostDto } from '../dto/create-post.dto';
 import { UpdatePostDto } from '../dto/update-post.dto';
 import { randomBytes } from 'crypto';
 import { FindPostByQueryDto } from '../dto/find-post-by-query.dto';
+import { PrismaService } from 'src/infrastructure/prisma/prisma.service';
 
 @Injectable()
 export class PostsRepository {

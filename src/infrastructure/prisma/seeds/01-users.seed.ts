@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common';
 import { AccountPermissions } from '../../../modules/users/enums/account-permissions.enum';
-import { PrismaService } from '../../../infra/prisma/prisma.service';
+import { PrismaService } from '../prisma.service';
 
 export class UsersSeed {
   private static readonly logger = new Logger(UsersSeed.name);

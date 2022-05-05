@@ -1,4 +1,4 @@
-import { PrismaService } from '../../../infra/prisma/prisma.service';
+import { PrismaService } from '../prisma.service';
 import { UsersSeed } from './01-users.seed';
 import { PostsSeed } from './02-posts.seed';
 

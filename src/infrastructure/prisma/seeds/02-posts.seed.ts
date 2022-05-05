@@ -1,5 +1,5 @@
 import { Logger } from '@nestjs/common';
-import { PrismaService } from '../../../infra/prisma/prisma.service';
+import { PrismaService } from '../prisma.service';
 
 export class PostsSeed {
   private static readonly logger = new Logger(PostsSeed.name);
