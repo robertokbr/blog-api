@@ -25,11 +25,11 @@ import { PostCandidatureDto } from '../dto/post-candidature.dto';
 import { CreatePostCandidatureDto } from '../dto/create-post-candidature.dto';
 import { PostTagDto } from '../dto/post-tag.dto';
 
-@ApiTags('posts')
 @Controller('posts')
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
+  @ApiTags('posts')
   @ApiResponse({
     type: PostDto,
   })
@@ -38,6 +38,7 @@ export class PostsController {
     return this.postsService.create(createPostDto);
   }
 
+  @ApiTags('posts')
   @ApiResponse({
     type: [PostDto],
   })
@@ -46,6 +47,7 @@ export class PostsController {
     return this.postsService.findAll(findPostByQueryDto);
   }
 
+  @ApiTags('posts')
   @ApiResponse({
     type: PostDto,
   })
@@ -54,6 +56,7 @@ export class PostsController {
     return this.postsService.findOne(slug);
   }
 
+  @ApiTags('posts')
   @ApiResponse({
     type: PostDto,
   })
@@ -65,6 +68,7 @@ export class PostsController {
     return this.postsService.update(+id, updatePostDto);
   }
 
+  @ApiTags('posts')
   @ApiResponse({
     type: PostDto,
   })
@@ -73,6 +77,7 @@ export class PostsController {
     return this.postsService.delete(+id);
   }
 
+  @ApiTags('rates')
   @ApiResponse({
     type: PostRateDto,
   })
@@ -83,30 +88,49 @@ export class PostsController {
     return this.postsService.createPostRate(createPostRateDto);
   }
 
+  @ApiTags('rates')
+  @ApiResponse({
+    type: [PostRateDto],
+  })
+  @Get('/rate')
+  async findAllPostRate(@Query('postId') postId: string) {
+    console.log(postId);
+    return this.postsService.findAllPostRate(+postId);
+  }
+
+  @ApiTags('comments')
+  @Get('/comments')
+  async findAllComment(@Query('postId') postId: string) {
+    return this.postsService.findAllComment(+postId);
+  }
+
+  @ApiTags('comments')
   @ApiResponse({
     type: CommentDto,
   })
-  @Post('/comment')
+  @Post('/comments')
   public async createComment(
     @Body() createCommentDto: CreateCommentDto,
   ): Promise<CommentDto> {
     return this.postsService.createComment(createCommentDto);
   }
 
+  @ApiTags('comments')
   @ApiResponse({
     type: CommentDto,
   })
-  @Delete('/comment/:commentId')
+  @Delete('/comments/:commentId')
   public async deleteComment(
     @Param('commentId') commentId: string,
   ): Promise<CommentDto> {
     return this.postsService.deleteComment(+commentId);
   }
 
+  @ApiTags('comments')
   @ApiResponse({
     type: CommentDto,
   })
-  @Patch('/comment/:commentId')
+  @Patch('/comments/:commentId')
   public async updateComment(
     @Param('commentId') commentId: string,
     @Body() updateCommentDto: UpdateCommentDto,
@@ -114,16 +138,27 @@ export class PostsController {
     return this.postsService.updateComment(+commentId, updateCommentDto);
   }
 
+  @ApiTags('rates')
   @ApiResponse({
     type: CommentRateDto,
   })
-  @Post('/comment/rate')
+  @Post('/comments/rate')
   public async createCommentRate(
     @Body() createCommentRateDto: CreateCommentRateDto,
   ): Promise<CommentRateDto> {
     return this.postsService.createCommentRate(createCommentRateDto);
   }
 
+  @ApiTags('rates')
+  @ApiResponse({
+    type: [CommentRateDto],
+  })
+  @Get('/comments/rate')
+  public async findAllCommentRate(@Query('commentId') commentId: string) {
+    return this.postsService.findAllCommentRate(+commentId);
+  }
+
+  @ApiTags('candidatures')
   @ApiResponse({
     type: PostCandidatureDto,
   })
@@ -134,6 +169,7 @@ export class PostsController {
     return this.postsService.createPostCandidature(createPostCandidatureDto);
   }
 
+  @ApiTags('candidatures')
   @ApiResponse({
     type: PostCandidatureDto,
   })
@@ -148,6 +184,7 @@ export class PostsController {
     );
   }
 
+  @ApiTags('tags')
   @ApiResponse({
     type: [PostTagDto],
   })

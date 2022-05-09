@@ -27,4 +27,15 @@ export class CommentsRepository {
       data,
     });
   }
+
+  public async findAll(postId: number) {
+    return this.client.comments.findMany({
+      where: {
+        postId,
+      },
+      include: {
+        user: true,
+      },
+    });
+  }
 }

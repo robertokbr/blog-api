@@ -28,4 +28,12 @@ export class CommentRatesRepository {
       data,
     });
   }
+
+  public async findAllByCommentId(commentId: number) {
+    return this.client.commentRates.findMany({
+      where: {
+        commentId,
+      },
+    });
+  }
 }

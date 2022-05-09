@@ -78,10 +78,7 @@ export class PostsRepository {
         ...(tag && {
           tags: {
             some: {
-              name: {
-                contains: tag,
-                mode: 'insensitive',
-              },
+              name: tag,
             },
           },
         }),

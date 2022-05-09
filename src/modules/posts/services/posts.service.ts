@@ -19,6 +19,7 @@ import { PostRatesRepository } from '../repositories/post-rates.repository';
 import { PostsRepository } from '../repositories/posts.repository';
 import { PostTagsRepository } from '../repositories/post-tags.repository';
 import { PostTagDto } from '../dto/post-tag.dto';
+import { PostAcessRepository } from '../repositories/post-acess.repository';
 
 @Injectable()
 export class PostsService {
@@ -29,6 +30,7 @@ export class PostsService {
     private readonly commentRatesRepository: CommentRatesRepository,
     private readonly postCandidaturesRepository: PostCandidaturesRepository,
     private readonly postTagsRepository: PostTagsRepository,
+    private readonly postAcessRepository: PostAcessRepository,
   ) {}
 
   public async create(createPostDto: CreatePostDto): Promise<PostDto> {
@@ -71,6 +73,10 @@ export class PostsService {
 
   public async findOne(slug: string): Promise<PostDto> {
     const post = await this.postsRepository.findBySlug(slug);
+    await this.postAcessRepository.create({
+      postId: post.id,
+      userId: undefined,
+    });
 
     return post as PostDto;
   }
@@ -105,6 +111,14 @@ export class PostsService {
     }
 
     return this.postRatesRepository.create({ postId, userId, value });
+  }
+
+  async findAllPostRate(postId: number) {
+    return this.postRatesRepository.findAll(postId);
+  }
+
+  async findAllComment(postId: number) {
+    return this.commentsRepository.findAll(postId);
   }
 
   public async deleteComment(commentId: number): Promise<CommentDto> {
@@ -144,6 +158,10 @@ export class PostsService {
     }
 
     return this.commentRatesRepository.create({ commentId, userId, value });
+  }
+
+  public async findAllCommentRate(commentId: number) {
+    return this.commentRatesRepository.findAllByCommentId(commentId);
   }
 
   public async createPostCandidature(

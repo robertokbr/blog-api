@@ -55,4 +55,12 @@ export class PostRatesRepository {
       data,
     });
   }
+
+  public async findAll(postId: number) {
+    return this.client.postRates.findMany({
+      where: {
+        postId,
+      },
+    });
+  }
 }
