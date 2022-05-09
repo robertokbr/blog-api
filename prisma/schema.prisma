@@ -30,6 +30,7 @@ model Users {
   postRates PostRates[]
   commentRates CommentRates[]
   candidatures PostCandidatures[]
+  acess PostAccess[]
 }
 
 model Posts {
@@ -51,6 +52,7 @@ model Posts {
   rates PostRates[]
   candidatures PostCandidatures[]
   tags PostTags[]
+  acess PostAccess[]
 }
 
 model PostTags {
@@ -131,4 +133,15 @@ model Ads {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+}
+
+model PostAccess {
+  id Int @id @default(autoincrement())
+  userId Int?
+  postId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  user Users? @relation(fields: [userId], references: [id])
+  post Posts? @relation(fields: [postId], references: [id])
 }
