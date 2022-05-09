@@ -24,6 +24,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PostCandidatureDto } from '../dto/post-candidature.dto';
 import { CreatePostCandidatureDto } from '../dto/create-post-candidature.dto';
 import { PostTagDto } from '../dto/post-tag.dto';
+import { PostAcessDto } from '../dto/post-acess.dto';
 
 @Controller('posts')
 export class PostsController {
@@ -191,5 +192,14 @@ export class PostsController {
   @Get('/tags')
   findAllPostTags(): Promise<PostTagDto[]> {
     return this.postsService.findAllPostTags();
+  }
+
+  @ApiTags('posts')
+  @ApiResponse({
+    type: [PostAcessDto],
+  })
+  @Get('/access')
+  public async findPostAcess(): Promise<PostAcessDto[]> {
+    return this.postsService.findAllPostAcess();
   }
 }

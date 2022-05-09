@@ -201,4 +201,8 @@ export class PostsService {
 
     return [...filteredTags];
   }
+
+  public async findAllPostAcess() {
+    return this.postAcessRepository.findAll();
+  }
 }
