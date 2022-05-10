@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { create } from 'domain';
-import { CommentRateDto } from '../dto/comment-rate.dto';
-import { CreateCommentRateDto } from '../dto/create-comment-rate.dto';
-import { CreatePostRateDto } from '../dto/create-post-rate.dto';
-import { PostRateDto } from '../dto/post-rate.dto';
+import { CommentRateDto } from '../../../../domain/modules/posts/dto/comment-rate.dto';
+import { CreateCommentRateDto } from '../../../../domain/modules/posts/dto/create-comment-rate.dto';
+import { CreatePostRateDto } from '../../../../domain/modules/posts/dto/create-post-rate.dto';
+import { PostRateDto } from '../../../../domain/modules/posts/dto/post-rate.dto';
 import { CommentRatesRepository } from '../repositories/comment-rates.repository';
 import { PostRatesRepository } from '../repositories/post-rates.repository';
 

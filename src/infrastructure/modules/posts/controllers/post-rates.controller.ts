@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Body, Query } from '@nestjs/common';
-import { CreatePostRateDto } from '../dto/create-post-rate.dto';
-import { PostRateDto } from '../dto/post-rate.dto';
-import { CreateCommentRateDto } from '../dto/create-comment-rate.dto';
-import { CommentRateDto } from '../dto/comment-rate.dto';
+import { CreatePostRateDto } from '../../../../domain/modules/posts/dto/create-post-rate.dto';
+import { PostRateDto } from '../../../../domain/modules/posts/dto/post-rate.dto';
+import { CreateCommentRateDto } from '../../../../domain/modules/posts/dto/create-comment-rate.dto';
+import { CommentRateDto } from '../../../../domain/modules/posts/dto/comment-rate.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PostRatesService } from '../services/post-rates.service.ts';
 

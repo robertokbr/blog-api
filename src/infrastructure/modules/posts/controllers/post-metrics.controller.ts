@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { PostAcessDto } from '../dto/post-acess.dto';
+import { PostAcessDto } from '../../../../domain/modules/posts/dto/post-acess.dto';
 import { PostMetricsService } from '../services/post-metrics.service';
 
 @ApiTags('metrics')

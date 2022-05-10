@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePostDto } from '../dto/create-post.dto';
-import { FindPostByQueryDto } from '../dto/find-post-by-query.dto';
-import { PostDto } from '../dto/post.dto';
-import { UpdatePostDto } from '../dto/update-post.dto';
+import { CreatePostDto } from '../../../../domain/modules/posts/dto/create-post.dto';
+import { FindPostByQueryDto } from '../../../../domain/modules/posts/dto/find-post-by-query.dto';
+import { PostDto } from '../../../../domain/modules/posts/dto/post.dto';
+import { UpdatePostDto } from '../../../../domain/modules/posts/dto/update-post.dto';
 import { PostRatesRepository } from '../repositories/post-rates.repository';
 import { PostsRepository } from '../repositories/posts.repository';
 import { PostTagsRepository } from '../repositories/post-tags.repository';
-import { PostTagDto } from '../dto/post-tag.dto';
-import { PostAcessRepository } from '../repositories/post-acess.repository';
+import { PostTagDto } from '../../../../domain/modules/posts/dto/post-tag.dto';
+import { PostAccessRepository } from '../repositories/post-access.repository';
 
 @Injectable()
 export class PostsService {
@@ -15,7 +15,7 @@ export class PostsService {
     private readonly postsRepository: PostsRepository,
     private readonly postRatesRepository: PostRatesRepository,
     private readonly postTagsRepository: PostTagsRepository,
-    private readonly postAcessRepository: PostAcessRepository,
+    private readonly postAccessRepository: PostAccessRepository,
   ) {}
 
   public async create(createPostDto: CreatePostDto): Promise<PostDto> {
@@ -31,7 +31,7 @@ export class PostsService {
       rateValue,
     });
 
-    return posts.map((post) => post.post as PostDto);
+    return posts.map((post) => post.post);
   }
 
   private async findByTextSearch(text: string) {
@@ -51,19 +51,17 @@ export class PostsService {
       return this.findByTextSearch(input) as Promise<PostDto[]>;
     }
 
-    const post = await this.postsRepository.findAll(findPostByQueryDto);
-
-    return post as PostDto[];
+    return this.postsRepository.findAll(findPostByQueryDto);
   }
 
   public async findOne(slug: string): Promise<PostDto> {
     const post = await this.postsRepository.findBySlug(slug);
-    await this.postAcessRepository.create({
+    await this.postAccessRepository.create({
       postSlug: slug,
       userId: undefined,
     });
 
-    return post as PostDto;
+    return post;
   }
 
   public async update(

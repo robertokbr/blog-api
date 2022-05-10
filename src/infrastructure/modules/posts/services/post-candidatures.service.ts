@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePostCandidatureDto } from '../dto/create-post-candidature.dto';
-import { PostCandidatureDto } from '../dto/post-candidature.dto';
+import { CreatePostCandidatureDto } from '../../../../domain/modules/posts/dto/create-post-candidature.dto';
+import { PostCandidatureDto } from '../../../../domain/modules/posts/dto/post-candidature.dto';
 import { PostCandidaturesRepository } from '../repositories/post-candidatures.repository';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class PostCandidaturesService {
       createCandidatureDto,
     );
 
-    return postCandidature as PostCandidatureDto;
+    return postCandidature;
   }
 
   public async updatePostCandidature(
@@ -28,6 +28,6 @@ export class PostCandidaturesService {
       createCandidatureDto,
     );
 
-    return postCandidature as PostCandidatureDto;
+    return postCandidature;
   }
 }

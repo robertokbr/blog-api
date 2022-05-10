@@ -9,11 +9,11 @@ import {
   Delete,
 } from '@nestjs/common';
 import { PostsService } from '../services/posts.service';
-import { CreatePostDto } from '../dto/create-post.dto';
-import { UpdatePostDto } from '../dto/update-post.dto';
-import { PostDto } from '../dto/post.dto';
-import { FindPostByQueryDto } from '../dto/find-post-by-query.dto';
-import { PostTagDto } from '../dto/post-tag.dto';
+import { CreatePostDto } from '../../../../domain/modules/posts/dto/create-post.dto';
+import { UpdatePostDto } from '../../../../domain/modules/posts/dto/update-post.dto';
+import { PostDto } from '../../../../domain/modules/posts/dto/post.dto';
+import { FindPostByQueryDto } from '../../../../domain/modules/posts/dto/find-post-by-query.dto';
+import { PostTagDto } from '../../../../domain/modules/posts/dto/post-tag.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @Controller('posts')

@@ -1,0 +1,26 @@
+import { Injectable } from '@nestjs/common';
+import { CreatePostAccessDto } from 'src/domain/modules/posts/dto/create-post-access.dto';
+import { PostAcessDto } from 'src/domain/modules/posts/dto/post-acess.dto';
+import { IPostAccessRepository } from 'src/domain/modules/posts/interfaces/post-access.repository.interface';
+import { PrismaService } from '../../common/prisma/prisma.service';
+
+@Injectable()
+export class PostAccessRepository implements IPostAccessRepository {
+  constructor(private readonly client: PrismaService) {}
+
+  public async create({
+    postSlug,
+    userId,
+  }: CreatePostAccessDto): Promise<PostAcessDto> {
+    return this.client.postAccess.create({
+      data: {
+        postSlug,
+        userId,
+      },
+    });
+  }
+
+  public async findAll(): Promise<PostAcessDto[]> {
+    return this.client.postAccess.findMany();
+  }
+}

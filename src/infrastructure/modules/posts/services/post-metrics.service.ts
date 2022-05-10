@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { PostAcessRepository } from '../repositories/post-acess.repository';
+import { PostAccessRepository } from '../repositories/post-access.repository';
 
 @Injectable()
 export class PostMetricsService {
-  constructor(private readonly postAcessRepository: PostAcessRepository) {}
+  constructor(private readonly postAccessRepository: PostAccessRepository) {}
 
   public async findAllPostAccess() {
-    return this.postAcessRepository.findAll();
+    return this.postAccessRepository.findAll();
   }
 }
