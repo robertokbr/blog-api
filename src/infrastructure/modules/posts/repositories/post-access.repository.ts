@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePostAccessDto } from 'src/domain/modules/posts/dto/create-post-access.dto';
-import { PostAcessDto } from 'src/domain/modules/posts/dto/post-acess.dto';
-import { IPostAccessRepository } from 'src/domain/modules/posts/interfaces/post-access.repository.interface';
+import { CreatePostAccessDto } from '../../../../domain/modules/posts/dto/create-post-access.dto';
+import { PostAcessDto } from '../../../../domain/modules/posts/dto/post-acess.dto';
+import { IPostAccessRepository } from '../../../../domain/modules/posts/interfaces/post-access.repository.interface';
 import { PrismaService } from '../../common/prisma/prisma.service';
 
 @Injectable()

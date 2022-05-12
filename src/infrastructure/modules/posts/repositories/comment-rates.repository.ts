@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { ICommentRatesRepository } from 'src/domain/modules/posts/interfaces/comment-rates.repository.interface';
-import { PrismaService } from 'src/infrastructure/modules/common/prisma/prisma.service';
+import { ICommentRatesRepository } from '../../../../domain/modules/posts/interfaces/comment-rates.repository.interface';
+import { PrismaService } from '../../../../infrastructure/modules/common/prisma/prisma.service';
 import { CommentRateDto } from '../../../../domain/modules/posts/dto/comment-rate.dto';
 import { CreateCommentRateDto } from '../../../../domain/modules/posts/dto/create-comment-rate.dto';
 import { UpdateCommentRateDto } from '../../../../domain/modules/posts/dto/update-comment-rate.dto';

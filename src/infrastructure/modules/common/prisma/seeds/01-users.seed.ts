@@ -1,5 +1,5 @@
 import { Logger } from '@nestjs/common';
-import { AccountPermissions } from '../../../users/enums/account-permissions.enum';
+import { Role } from '../../../../../domain/modules/users/enums/role.enum';
 import { PrismaService } from '../prisma.service';
 
 export class UsersSeed {
@@ -14,7 +14,7 @@ export class UsersSeed {
           email: 'robertojuniordev@gmail.com',
           name: 'Roberto Junior',
           github: 'robertokbr',
-          permission: AccountPermissions.ADMIN,
+          role: Role.ADMIN,
         },
       });
     } catch (error) {

@@ -16,21 +16,23 @@ export class LoggingInterceptor implements NestInterceptor {
     const now = Date.now();
     const httpContext = context.switchToHttp();
     const request = httpContext.getRequest();
-
     const ip = this.getIP(request);
-
     const data = request.method === 'GET' ? request.query : request.body;
 
     this.logger.log(
-      `Incoming Request on ${request.path} with data: ${JSON.stringify(data)}`,
-      `method=${request.method} ip=${ip}`,
+      `Incoming Request: method=${
+        request.method
+      } ip=${ip} with data: ${JSON.stringify(data)}`,
+      `${request.path}`,
     );
 
     return next.handle().pipe(
       tap(() => {
         this.logger.log(
-          `End Request for ${request.path}`,
-          `method=${request.method} ip=${ip} duration=${Date.now() - now}ms`,
+          `End Request: method=${request.method} ip=${ip} duration=${
+            Date.now() - now
+          }ms`,
+          `${request.path}`,
         );
       }),
     );

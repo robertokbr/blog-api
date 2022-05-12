@@ -16,6 +16,7 @@ import { FindPostByQueryDto } from '../../../../domain/modules/posts/dto/find-po
 import { PostTagDto } from '../../../../domain/modules/posts/dto/post-tag.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('posts')
 @Controller('posts')
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}

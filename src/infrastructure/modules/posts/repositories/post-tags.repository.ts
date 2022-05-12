@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { IPostTagsRepository } from 'src/domain/modules/posts/interfaces/post-tags.repository.interface';
+import { IPostTagsRepository } from '../../../../domain/modules/posts/interfaces/post-tags.repository.interface';
 import { PrismaService } from '../../common/prisma/prisma.service';
 
 @Injectable()

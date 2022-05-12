@@ -3,9 +3,9 @@ import { PrismaService } from '../../common/prisma/prisma.service';
 import { CreatePostRateDto } from '../../../../domain/modules/posts/dto/create-post-rate.dto';
 import { PostRateDto } from '../../../../domain/modules/posts/dto/post-rate.dto';
 import { UpdatePostRateDto } from '../../../../domain/modules/posts/dto/update-post-rate.dto';
-import { FindUserRatedPostsDto } from 'src/domain/modules/posts/dto/find-user-rated-posts.dto';
-import { IPostRatesRepository } from 'src/domain/modules/posts/interfaces/post-rates.repository.interface';
-import { UserRatedPostDto } from 'src/domain/modules/posts/dto/user-rated-post.dto';
+import { FindUserRatedPostsDto } from '../../../../domain/modules/posts/dto/find-user-rated-posts.dto';
+import { IPostRatesRepository } from '../../../../domain/modules/posts/interfaces/post-rates.repository.interface';
+import { UserRatedPostDto } from '../../../../domain/modules/posts/dto/user-rated-post.dto';
 
 @Injectable()
 export class PostRatesRepository implements IPostRatesRepository {

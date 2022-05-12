@@ -3,9 +3,9 @@ import { CreatePostDto } from '../../../../domain/modules/posts/dto/create-post.
 import { UpdatePostDto } from '../../../../domain/modules/posts/dto/update-post.dto';
 import { randomBytes } from 'crypto';
 import { FindPostByQueryDto } from '../../../../domain/modules/posts/dto/find-post-by-query.dto';
-import { PrismaService } from 'src/infrastructure/modules/common/prisma/prisma.service';
-import { IPostRepository } from 'src/domain/modules/posts/interfaces/post.repository.interface';
-import { PostDto } from 'src/domain/modules/posts/dto/post.dto';
+import { PrismaService } from '../../../../infrastructure/modules/common/prisma/prisma.service';
+import { IPostRepository } from '../../../../domain/modules/posts/interfaces/post.repository.interface';
+import { PostDto } from '../../../../domain/modules/posts/dto/post.dto';
 
 @Injectable()
 export class PostsRepository implements IPostRepository {
@@ -13,14 +13,8 @@ export class PostsRepository implements IPostRepository {
 
   public async create({ tags, ...dto }: CreatePostDto): Promise<PostDto> {
     let slug = dto.title.split(' ').join('-').toLowerCase();
-
-    const foundBySlug = await this.client.posts.findFirst({
-      where: { slug },
-    });
-
-    if (foundBySlug) {
-      slug += randomBytes(3).toString('hex');
-    }
+    const foundBySlug = await this.client.posts.findFirst({ where: { slug } });
+    if (foundBySlug) slug += randomBytes(3).toString('hex');
 
     return this.client.posts.create({
       data: {

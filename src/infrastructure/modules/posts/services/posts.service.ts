@@ -58,7 +58,7 @@ export class PostsService {
     const post = await this.postsRepository.findBySlug(slug);
     await this.postAccessRepository.create({
       postSlug: slug,
-      userId: undefined,
+      userId: undefined, // TODO: should be the jwt user when it get implemented
     });
 
     return post;
@@ -77,9 +77,7 @@ export class PostsService {
 
   public async findAllPostTags(): Promise<PostTagDto[]> {
     const tags = await this.postTagsRepository.findAll();
-
     const names = tags.map((tag) => tag.name);
-
     const filteredNames = new Set(names);
 
     const filteredTags = [...filteredNames].map((tag) => {

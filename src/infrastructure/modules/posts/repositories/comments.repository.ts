@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../common/prisma/prisma.service';
 import { CreateCommentDto } from '../../../../domain/modules/posts/dto/create-comment.dto';
 import { UpdateCommentDto } from '../../../../domain/modules/posts/dto/update-comment.dto';
-import { CommentDto } from 'src/domain/modules/posts/dto/comment.dto';
-import { ICommentsRepository } from 'src/domain/modules/posts/interfaces/comments.repository.interface';
+import { CommentDto } from '../../../../domain/modules/posts/dto/comment.dto';
+import { ICommentsRepository } from '../../../../domain/modules/posts/interfaces/comments.repository.interface';
 
 @Injectable()
 export class CommentsRepository implements ICommentsRepository {
