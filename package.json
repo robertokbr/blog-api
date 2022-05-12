@@ -1,8 +1,8 @@
 {
-  "name": "api",
+  "name": "blog-api",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "blog.rbjr.dev API",
+  "author": "robertokbr",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -21,7 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "migration:reset": "prisma migrate reset",
     "migration:run": "prisma migrate dev",
-    "seed:run": "ts-node src/infrasctructure/prisma/seeds/index.ts",
+    "seed:run": "ts-node src/infrastructure/modules/common/prisma/seeds/index.ts",
     "setup:dev": "npm run migration:reset && npm run migration:run && npm run seed:run",
     "db:show": "npx prisma studio"
   },
@@ -37,6 +37,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "nestjs-pino": "^2.5.2",
+    "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
     "pino-http": "^7.0.0",
     "pino-http-print": "^3.1.0",
