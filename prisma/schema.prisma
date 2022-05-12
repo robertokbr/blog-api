@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum AccountPermissions {
+enum Role {
   USER
   ADMIN
 }
@@ -21,7 +21,7 @@ model Users {
   image String?
   email String @unique
   github  String? @unique
-  permission AccountPermissions @default(USER)
+  role Role @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
   
@@ -124,13 +124,35 @@ enum AdType {
 
 model Ads {
   id Int @id @default(autoincrement())
-  title String
-  description String
-  image String
   link String
-  type AdType
-  isAvailable Boolean
+  type AdType?
+  title String
+  image String?
+  description String?
+  typeAttributesRef Int?
+  isAvailable Boolean @default(true)
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model AdPostTypeAttributes {
+  id Int @id @default(autoincrement())
+  frequency Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model AdCommentTypeAttributes {
+  id Int @id @default(autoincrement())
+  postId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model AdAsideTypeAttributes {
+  id Int @id @default(autoincrement())
+  campaignTime Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 }
