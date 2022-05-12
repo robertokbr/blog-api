@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
-import { PostRateValues } from '../enums/post-rate-values.enum';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class FindPostByQueryDto {
   @IsString()
