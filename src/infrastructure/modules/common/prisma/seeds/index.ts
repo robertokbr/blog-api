@@ -1,9 +1,8 @@
 import { PrismaService } from '../prisma.service';
 import { UsersSeed } from './01-users.seed';
-import { PostsSeed } from './02-posts.seed';
 
 const client = new PrismaService();
-const seeds = [UsersSeed, PostsSeed];
+const seeds = [UsersSeed];
 
 (() => {
   seeds.reduce(async (previousSeed, nextSeed) => {
