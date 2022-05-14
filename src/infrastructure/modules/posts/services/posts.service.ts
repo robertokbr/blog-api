@@ -8,6 +8,7 @@ import { PostsRepository } from '../repositories/posts.repository';
 import { PostTagsRepository } from '../repositories/post-tags.repository';
 import { PostTagDto } from '../../../../domain/modules/posts/dto/post-tag.dto';
 import { PostAccessRepository } from '../repositories/post-access.repository';
+import { textToSlugUtil } from '../../common/utils/text-to-slug.util';
 
 @Injectable()
 export class PostsService {
@@ -19,6 +20,8 @@ export class PostsService {
   ) {}
 
   public async create(createPostDto: CreatePostDto): Promise<PostDto> {
+    const slug = textToSlugUtil(createPostDto.title);
+    Object.assign(createPostDto, { slug });
     return this.postsRepository.create(createPostDto);
   }
 

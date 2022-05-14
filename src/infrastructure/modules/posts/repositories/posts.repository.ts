@@ -12,14 +12,9 @@ export class PostsRepository implements IPostRepository {
   constructor(private readonly client: PrismaService) {}
 
   public async create({ tags, ...dto }: CreatePostDto): Promise<PostDto> {
-    let slug = dto.title.split(' ').join('-').toLowerCase();
-    const foundBySlug = await this.client.posts.findFirst({ where: { slug } });
-    if (foundBySlug) slug += randomBytes(3).toString('hex');
-
     return this.client.posts.create({
       data: {
         ...dto,
-        slug,
         ...(tags && {
           tags: { createMany: { data: tags.map((tag) => ({ name: tag })) } },
         }),
