@@ -51,6 +51,11 @@ export class PostsRepository implements IPostRepository {
             rates: true,
             user: true,
           },
+          orderBy: {
+            rates: {
+              _count: 'desc',
+            },
+          },
         },
         candidatures: {
           include: {

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { CreatePostDto } from '../../../../domain/modules/posts/dto/create-post.dto';
 import { FindPostByQueryDto } from '../../../../domain/modules/posts/dto/find-post-by-query.dto';
 import { PostDto } from '../../../../domain/modules/posts/dto/post.dto';
@@ -12,6 +12,8 @@ import { textToSlugUtil } from '../../common/utils/text-to-slug.util';
 
 @Injectable()
 export class PostsService {
+  private logger = new Logger(PostsService.name);
+
   constructor(
     private readonly postsRepository: PostsRepository,
     private readonly postRatesRepository: PostRatesRepository,
@@ -21,8 +23,7 @@ export class PostsService {
 
   public async create(createPostDto: CreatePostDto): Promise<PostDto> {
     const slug = textToSlugUtil(createPostDto.title);
-    Object.assign(createPostDto, { slug });
-    return this.postsRepository.create(createPostDto);
+    return this.postsRepository.create({ ...createPostDto, slug });
   }
 
   private async findAllUserRatedPost({

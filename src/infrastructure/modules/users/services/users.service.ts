@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../../../../domain/modules/users/dto/create-user.dto';
 import { UpdateUserDto } from '../../../../domain/modules/users/dto/update-user.dto';
 import { UserDto } from '../../../../domain/modules/users/dto/user.dto';
@@ -20,7 +20,15 @@ export class UsersService {
     return this.usersRepository.findByEmail(email);
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<UserDto> {
+  async update(
+    id: number,
+    updateUserDto: UpdateUserDto,
+    user: UserDto,
+  ): Promise<UserDto> {
+    if (id !== user.id) {
+      throw new ForbiddenException("You're only able to update your own user");
+    }
+
     return this.usersRepository.update(id, updateUserDto);
   }
 

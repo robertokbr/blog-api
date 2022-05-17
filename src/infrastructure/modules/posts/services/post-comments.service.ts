@@ -1,8 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
+import { UserDto } from '../../../../domain/modules/users/dto/user.dto';
 import { CommentDto } from '../../../../domain/modules/posts/dto/comment.dto';
 import { CreateCommentDto } from '../../../../domain/modules/posts/dto/create-comment.dto';
 import { UpdateCommentDto } from '../../../../domain/modules/posts/dto/update-comment.dto';
 import { CommentsRepository } from '../repositories/comments.repository';
+import { Role } from '../../../../domain/modules/users/enums/role.enum';
 
 @Injectable()
 export class PostCommentsService {
@@ -12,7 +14,19 @@ export class PostCommentsService {
     return this.commentsRepository.findAll({ postId });
   }
 
-  public async delete(commentId: number): Promise<CommentDto> {
+  public async delete(commentId: number, user: UserDto): Promise<CommentDto> {
+    if (user.role !== Role.ADMIN) {
+      const [comment] = await this.commentsRepository.findAll({
+        userId: user.id,
+        id: commentId,
+      });
+
+      if (!comment)
+        throw new ForbiddenException(
+          'You are only allowed to delete your own comments!',
+        );
+    }
+
     return this.commentsRepository.delete(commentId);
   }
 

@@ -1,6 +1,7 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, Logger } from '@nestjs/common';
+import { jwtConfig } from 'src/infrastructure/configs/jwt.config';
 
 export type AuthenticatorDecodedToken = {
   appId?: string;
@@ -21,13 +22,11 @@ export class AuthenticatorJwtStrategy extends PassportStrategy(
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: 'morenas2',
+      secretOrKey: jwtConfig.secret,
     });
   }
 
   async validate(payload: AuthenticatorDecodedToken) {
-    this.logger.log(payload);
-
     return payload;
   }
 }
