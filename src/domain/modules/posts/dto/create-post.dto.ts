@@ -1,5 +1,5 @@
 import { ApiProperty, OmitType } from '@nestjs/swagger';
-import { IsArray, IsOptional } from 'class-validator';
+import { IsArray, IsOptional, IsString } from 'class-validator';
 import { PostDto } from './post.dto';
 
 export class CreatePostDto extends OmitType(PostDto, [
@@ -11,9 +11,15 @@ export class CreatePostDto extends OmitType(PostDto, [
   'rates',
   'candidatures',
   'tags',
+  'slug',
 ]) {
   @IsArray()
   @IsOptional()
   @ApiProperty()
   tags: string[];
+
+  @IsString()
+  @IsOptional()
+  @ApiProperty()
+  slug: string;
 }
