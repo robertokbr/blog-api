@@ -5,7 +5,7 @@ import { UsersModule } from './infrastructure/modules/users/users.module';
 import { PostsModule } from './infrastructure/modules/posts/posts.module';
 import { AdsModule } from './infrastructure/modules/ads/ads.module';
 import { LoggerModule } from 'nestjs-pino';
-import { CommonModule } from './infrastructure/modules/common/common.module';
+import { CommonModule } from './infrastructure/common/common.module';
 import { pinoConfig } from './infrastructure/configs/pino.config';
 
 @Module({
