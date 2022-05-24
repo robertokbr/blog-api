@@ -2,7 +2,7 @@ import {
   CreateEntity,
   FindAllEntity,
   UpdateEntity,
-} from '../../common/base/repository.base';
+} from '../../../common/base/repository.base';
 import { CommentRateDto } from '../dto/comment-rate.dto';
 import { CreateCommentRateDto } from '../dto/create-comment-rate.dto';
 import { UpdateCommentRateDto } from '../dto/update-comment-rate.dto';

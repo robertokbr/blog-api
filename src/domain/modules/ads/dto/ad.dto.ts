@@ -6,7 +6,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { DtoBase } from '../../common/base/dto.base';
+import { DtoBase } from '../../../common/base/dto.base';
 import { AdType } from '../enums/ad-type.enum';
 
 export class AdDto extends DtoBase {

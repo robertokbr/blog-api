@@ -3,7 +3,7 @@ import {
   DeleteEntity,
   FindAllEntity,
   UpdateEntity,
-} from '../../common/base/repository.base';
+} from '../../../common/base/repository.base';
 import { CreatePostDto } from '../dto/create-post.dto';
 import { FindPostByQueryDto } from '../dto/find-post-by-query.dto';
 import { PostDto } from '../dto/post.dto';

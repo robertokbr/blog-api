@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsString } from 'class-validator';
-import { DtoBase } from '../../common/base/dto.base';
+import { DtoBase } from '../../../common/base/dto.base';
 import { Role } from '../enums/role.enum';
 
 export class UserDto extends DtoBase {

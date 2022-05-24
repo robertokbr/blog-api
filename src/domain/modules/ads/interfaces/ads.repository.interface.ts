@@ -3,7 +3,7 @@ import {
   FindAllEntity,
   FindOneEntity,
   UpdateEntity,
-} from '../../common/base/repository.base';
+} from '../../../common/base/repository.base';
 import { AdDto } from '../dto/ad.dto';
 import { CreateAdDto } from '../dto/create-ad.dto';
 import { UpdateAdDto } from '../dto/update-ad.dto';

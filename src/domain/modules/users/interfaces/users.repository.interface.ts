@@ -3,7 +3,7 @@ import {
   DeleteEntity,
   FindAllEntity,
   UpdateEntity,
-} from '../../common/base/repository.base';
+} from '../../../common/base/repository.base';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserDto } from '../dto/user.dto';

@@ -1,4 +1,7 @@
-import { CreateEntity, FindOneEntity } from '../../common/base/repository.base';
+import {
+  CreateEntity,
+  FindOneEntity,
+} from '../../../common/base/repository.base';
 import { AdCommentTypeAttributeDto } from '../dto/ad-comment-type-attribute.dto';
 
 export interface IAdCommentTypeAttributesRepository

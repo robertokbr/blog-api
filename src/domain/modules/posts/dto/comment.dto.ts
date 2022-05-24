@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsString } from 'class-validator';
-import { DtoBase } from '../../common/base/dto.base';
+import { DtoBase } from '../../../common/base/dto.base';
 import { UserDto } from '../../users/dto/user.dto';
 import { CommentRateDto } from './comment-rate.dto';
 
