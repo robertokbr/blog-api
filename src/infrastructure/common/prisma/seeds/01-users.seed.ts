@@ -1,5 +1,5 @@
 import { Logger } from '@nestjs/common';
-import { Role } from '../../../../../domain/modules/users/enums/role.enum';
+import { Role } from '../../../../domain/modules/users/enums/role.enum';
 import { PrismaService } from '../prisma.service';
 
 export class UsersSeed {
