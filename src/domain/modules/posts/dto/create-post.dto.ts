@@ -15,11 +15,11 @@ export class CreatePostDto extends OmitType(PostDto, [
 ]) {
   @IsArray()
   @IsOptional()
-  @ApiProperty()
+  @ApiProperty({ required: false })
   tags: string[];
 
   @IsString()
   @IsOptional()
-  @ApiProperty()
+  @ApiProperty({ required: false })
   slug: string;
 }
