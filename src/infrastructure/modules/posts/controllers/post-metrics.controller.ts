@@ -3,9 +3,9 @@ import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Role } from 'src/domain/modules/users/enums/role.enum';
 
 import { PostAcessDto } from '../../../../domain/modules/posts/dto/post-acess.dto';
-import { RequireRole } from '../../common/decorators/require-role.decorator';
-import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
-import { RolesGuard } from '../../common/guards/roles.guard';
+import { RequireRole } from '../../../common/decorators/require-role.decorator';
+import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
+import { RolesGuard } from '../../../common/guards/roles.guard';
 import { PostMetricsService } from '../services/post-metrics.service';
 
 @ApiTags('metrics')

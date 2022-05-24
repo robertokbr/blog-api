@@ -5,14 +5,14 @@ import { CreateCommentRateDto } from '../../../../domain/modules/posts/dto/creat
 import { CommentRateDto } from '../../../../domain/modules/posts/dto/comment-rate.dto';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PostRatesService } from '../services/post-rates.service';
-import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
 
 @ApiTags('rates')
-@Controller('/posts/rates')
+@Controller('/posts')
 export class PostRatesController {
   constructor(private readonly postRatesService: PostRatesService) {}
 
-  @Post('/rate')
+  @Post('/rates')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiResponse({ type: PostRateDto })
@@ -22,14 +22,14 @@ export class PostRatesController {
     return this.postRatesService.create(createPostRateDto);
   }
 
-  @Get('/rate')
+  @Get('/rates')
   @ApiResponse({ type: [PostRateDto] })
   async findAll(@Query('postId') postId: string) {
     console.log(postId);
     return this.postRatesService.findAll(+postId);
   }
 
-  @Post('/comments/rate')
+  @Post('/comments/rates')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiResponse({ type: CommentRateDto })
@@ -39,7 +39,7 @@ export class PostRatesController {
     return this.postRatesService.createCommentRate(createCommentRateDto);
   }
 
-  @Get('/comments/rate')
+  @Get('/comments/rates')
   @ApiResponse({ type: [CommentRateDto] })
   public async findAllCommentRate(@Query('commentId') commentId: string) {
     return this.postRatesService.findAllCommentRate(+commentId);

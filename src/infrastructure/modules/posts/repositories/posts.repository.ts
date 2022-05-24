@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePostDto } from '../../../../domain/modules/posts/dto/create-post.dto';
 import { UpdatePostDto } from '../../../../domain/modules/posts/dto/update-post.dto';
-import { randomBytes } from 'crypto';
 import { FindPostByQueryDto } from '../../../../domain/modules/posts/dto/find-post-by-query.dto';
-import { PrismaService } from '../../../../infrastructure/modules/common/prisma/prisma.service';
+import { PrismaService } from '../../../common/prisma/prisma.service';
 import { IPostRepository } from '../../../../domain/modules/posts/interfaces/post.repository.interface';
 import { PostDto } from '../../../../domain/modules/posts/dto/post.dto';
 

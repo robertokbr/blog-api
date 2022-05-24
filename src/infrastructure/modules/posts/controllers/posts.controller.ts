@@ -16,9 +16,9 @@ import { PostDto } from '../../../../domain/modules/posts/dto/post.dto';
 import { FindPostByQueryDto } from '../../../../domain/modules/posts/dto/find-post-by-query.dto';
 import { PostTagDto } from '../../../../domain/modules/posts/dto/post-tag.dto';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
-import { RolesGuard } from '../../common/guards/roles.guard';
-import { RequireRole } from '../../common/decorators/require-role.decorator';
+import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
+import { RolesGuard } from '../../../common/guards/roles.guard';
+import { RequireRole } from '../../../common/decorators/require-role.decorator';
 import { Role } from '../../../../domain/modules/users/enums/role.enum';
 
 @ApiTags('posts')

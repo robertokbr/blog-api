@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { AdAsideTypeAttributeDto } from '../../../../domain/modules/ads/dto/ad-aside-type-attribute.dto';
 import { IAdAsideTypeAttributesRepository } from '../../../../domain/modules/ads/interfaces/ad-post-aside-attributes.respository.interface';
-import { PrismaService } from '../../common/prisma/prisma.service';
+import { PrismaService } from '../../../common/prisma/prisma.service';
 
 @Injectable()
 export class AdAsideTypeAttributesRepository

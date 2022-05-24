@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../common/prisma/prisma.service';
+import { PrismaService } from '../../../common/prisma/prisma.service';
 import { CreatePostCandidatureDto } from '../../../../domain/modules/posts/dto/create-post-candidature.dto';
 import { IPostCandidaturesRepository } from '../../../../domain/modules/posts/interfaces/post-candidature.repository.interface';
 import { PostCandidatureDto } from '../../../../domain/modules/posts/dto/post-candidature.dto';

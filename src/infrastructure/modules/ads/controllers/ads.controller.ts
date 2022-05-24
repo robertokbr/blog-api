@@ -15,9 +15,9 @@ import { AdDto } from '../../../../domain/modules/ads/dto/ad.dto';
 import { CreateAdDto } from '../../../../domain/modules/ads/dto/create-ad.dto';
 import { FindAdsByQueryDto } from '../../../../domain/modules/ads/dto/find-ads-by-query.dto';
 import { UpdateAdDto } from '../../../../domain/modules/ads/dto/update-ad.dto';
-import { RequireRole } from '../../common/decorators/require-role.decorator';
-import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
-import { RolesGuard } from '../../common/guards/roles.guard';
+import { RequireRole } from '../../../common/decorators/require-role.decorator';
+import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
+import { RolesGuard } from '../../../common/guards/roles.guard';
 import { AdsService } from '../services/ads.service';
 
 @ApiTags('ads')

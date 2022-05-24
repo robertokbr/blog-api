@@ -14,11 +14,11 @@ import { Role } from '../../../../domain/modules/users/enums/role.enum';
 import { CreateUserDto } from '../../../../domain/modules/users/dto/create-user.dto';
 import { UpdateUserDto } from '../../../../domain/modules/users/dto/update-user.dto';
 import { UserDto } from '../../../../domain/modules/users/dto/user.dto';
-import { RequireRole } from '../../common/decorators/require-role.decorator';
-import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
+import { RequireRole } from '../../../common/decorators/require-role.decorator';
+import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
 import { UsersService } from '../services/users.service';
-import { RolesGuard } from '../../common/guards/roles.guard';
-import { GetUser } from '../../common/decorators/get-user.decorator';
+import { RolesGuard } from '../../../common/guards/roles.guard';
+import { GetUser } from '../../../common/decorators/get-user.decorator';
 
 @ApiTags('users')
 @Controller('users')

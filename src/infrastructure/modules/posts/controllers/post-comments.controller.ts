@@ -14,11 +14,11 @@ import { CommentDto } from '../../../../domain/modules/posts/dto/comment.dto';
 import { UpdateCommentDto } from '../../../../domain/modules/posts/dto/update-comment.dto';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PostCommentsService } from '../services/post-comments.service';
-import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
-import { RequireRole } from '../../common/decorators/require-role.decorator';
+import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
+import { RequireRole } from '../../../common/decorators/require-role.decorator';
 import { Role } from '../../../../domain/modules/users/enums/role.enum';
-import { RolesGuard } from '../../common/guards/roles.guard';
-import { GetUser } from '../../common/decorators/get-user.decorator';
+import { RolesGuard } from '../../../common/guards/roles.guard';
+import { GetUser } from '../../../common/decorators/get-user.decorator';
 import { UserDto } from '../../../../domain/modules/users/dto/user.dto';
 
 @ApiTags('comments')
@@ -26,12 +26,12 @@ import { UserDto } from '../../../../domain/modules/users/dto/user.dto';
 export class PostCommentsController {
   constructor(private readonly postCommentsService: PostCommentsService) {}
 
-  @Get('/comments')
+  @Get('/')
   async findAll(@Query('postId') postId: string) {
     return this.postCommentsService.findAll(+postId);
   }
 
-  @Post('/comments')
+  @Post('/')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiResponse({ type: CommentDto })
@@ -41,7 +41,7 @@ export class PostCommentsController {
     return this.postCommentsService.create(createCommentDto);
   }
 
-  @Delete('/comments/:id')
+  @Delete('/:id')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiResponse({ type: CommentDto })
@@ -52,7 +52,7 @@ export class PostCommentsController {
     return this.postCommentsService.delete(+id, user);
   }
 
-  @Patch('/comments/:id')
+  @Patch('/:id')
   @UseGuards(RolesGuard)
   @UseGuards(JwtAuthGuard)
   @RequireRole(Role.ADMIN)
