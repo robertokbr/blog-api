@@ -1,6 +1,6 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { jwtConfig } from 'src/infrastructure/configs/jwt.config';
 
 export type AuthenticatorDecodedToken = {
@@ -16,8 +16,6 @@ export class AuthenticatorJwtStrategy extends PassportStrategy(
   Strategy,
   'authenticatorJwt',
 ) {
-  private logger = new Logger(AuthenticatorJwtStrategy.name);
-
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

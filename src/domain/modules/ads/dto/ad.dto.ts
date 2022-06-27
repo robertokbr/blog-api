@@ -28,7 +28,7 @@ export class AdDto extends DtoBase {
   @ApiProperty()
   link: string;
 
-  @IsEnum({ enum: AdType })
+  @IsString()
   @IsOptional()
   @ApiProperty({ enum: AdType, required: false })
   type?: AdType;
