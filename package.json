@@ -21,7 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "migration:reset": "prisma migrate reset",
     "migration:run": "prisma migrate dev",
-    "seed:run": "ts-node src/infrastructure/modules/common/prisma/seeds/index.ts",
+    "seed:run": "ts-node src/infrastructure/common/prisma/seeds/index.ts",
     "setup:dev": "npm run migration:reset && npm run migration:run && npm run seed:run",
     "db:show": "npx prisma studio"
   },
