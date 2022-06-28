@@ -1,8 +1,7 @@
-import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsOptional } from 'class-validator';
-import { AdDto } from './ad.dto';
 
-export class FindAdsByQueryDto extends PartialType(AdDto) {
+export class FindAdsByAttributeDto {
   @IsNumber()
   @IsOptional()
   @ApiProperty({ required: false })

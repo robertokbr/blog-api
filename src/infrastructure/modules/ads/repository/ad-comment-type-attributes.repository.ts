@@ -22,4 +22,14 @@ export class AdCommentTypeAttributesRepository
       where: { id },
     });
   }
+
+  public async findAll(
+    data: Partial<AdCommentTypeAttributeDto>,
+  ): Promise<AdCommentTypeAttributeDto[]> {
+    return this.client.adCommentTypeAttributes.findMany({
+      where: {
+        ...data,
+      },
+    });
+  }
 }

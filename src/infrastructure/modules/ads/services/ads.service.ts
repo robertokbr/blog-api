@@ -9,6 +9,7 @@ import { AdCommentTypeAttributesRepository } from '../repository/ad-comment-type
 import { AdPostTypeAttributesRepository } from '../repository/ad-post-type-attributes.respository';
 import { AdsRepository } from '../repository/ads.repository';
 import { AdWithAttributesDto } from '../../../../domain/modules/ads/dto/ad-with-attributes.dto';
+import { FindAdsByAttributeDto } from 'src/domain/modules/ads/dto/find-ads-by-attribute.dto';
 
 @Injectable()
 export class AdsService {
@@ -54,9 +55,39 @@ export class AdsService {
   }
 
   async findAll(findAdsByQueryDto: FindAdsByQueryDto): Promise<AdDto[]> {
-    const ad = await this.adsRepository.findAll(findAdsByQueryDto);
+    // TODO: add other type cases
+    if (findAdsByQueryDto.postId) {
+      return this.findAllAdCommentType({
+        postId: findAdsByQueryDto.postId,
+      });
+    }
 
-    return ad;
+    const ads = await this.adsRepository.findAll(findAdsByQueryDto);
+
+    ads.map(async (ad) => {
+      if (ad.type) {
+        const repository = this.getRepositoryByType(ad.type);
+        const adAtt = await repository.findOne(ad.typeAttributesRef);
+        Object.assign(ad, { attributes: adAtt });
+      }
+    });
+
+    return ads;
+  }
+
+  async findAllAdCommentType(
+    findAdsByAttributeDto: FindAdsByAttributeDto,
+  ): Promise<AdDto[]> {
+    const atts = await this.adCommentTypeAttributesRepository.findAll({
+      postId: findAdsByAttributeDto.postId,
+    });
+
+    const postAds = await this.adsRepository.findAllByTypeAttributesRefs(
+      atts.map((att) => att.id),
+      AdType.COMMENT,
+    );
+
+    return postAds;
   }
 
   async findOne(id: number): Promise<AdWithAttributesDto> {
