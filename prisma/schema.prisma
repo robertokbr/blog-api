@@ -41,8 +41,6 @@ model Posts {
   title String
   content String
   description String?
-  participation Int?
-  availlablePositions Int?
   userId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
@@ -57,7 +55,7 @@ model Posts {
 
 model PostTags {
   id Int @id @default(autoincrement())
-  name String
+  name String 
   postId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
@@ -65,7 +63,7 @@ model PostTags {
   post Posts @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
 
-enum PostCandidatureStates {
+enum PostCandidatureState {
   ACCEPTED
   DENIED
   WAITING
@@ -75,7 +73,7 @@ model PostCandidatures {
   id Int @id @default(autoincrement())
   userId Int
   postId Int
-  state  PostCandidatureStates @default(WAITING)
+  state  PostCandidatureState @default(WAITING)
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
