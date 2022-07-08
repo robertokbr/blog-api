@@ -75,7 +75,7 @@ export class AdsService {
     return ads;
   }
 
-  async findAllAdCommentType(
+  private async findAllAdCommentType(
     findAdsByAttributeDto: FindAdsByAttributeDto,
   ): Promise<AdDto[]> {
     const atts = await this.adCommentTypeAttributesRepository.findAll({
