@@ -120,39 +120,51 @@ enum AdType {
   ASIDE
 }
 
-model Ads {
+model AdContents {
   id Int @id @default(autoincrement())
   link String
-  type AdType?
   title String
   image String?
   description String?
-  typeAttributesRef Int?
-  isAvailable Boolean @default(true)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+
+  feedAds FeedAds[]
+  postAds PostAds[]
+  commentAds AsideAds[] 
 }
 
-model AdPostTypeAttributes {
+model FeedAds {
   id Int @id @default(autoincrement())
+  adContentId Int?
+  isAvailable Boolean @default(true)
   frequency Int
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+  
+  adContent AdContents? @relation(fields: [adContentId], references: [id], onDelete: Cascade)
 }
 
-model AdCommentTypeAttributes {
+model PostAds {
   id Int @id @default(autoincrement())
+  adContentId Int?
+  isAvailable Boolean @default(true)
   postId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+  adContent AdContents? @relation(fields: [adContentId], references: [id], onDelete: Cascade)
 }
 
-model AdAsideTypeAttributes {
+model AsideAds {
   id Int @id @default(autoincrement())
+  adContentId Int?
+  isAvailable Boolean @default(true)
   campaignTime Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+  
+  adContent AdContents? @relation(fields: [adContentId], references: [id], onDelete: Cascade)
 }
 
 model PostAccess {
