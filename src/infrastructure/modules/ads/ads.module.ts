@@ -1,19 +1,18 @@
 import { Module } from '@nestjs/common';
-import { AdsController } from './controllers/ads.controller';
-import { AdAsideTypeAttributesRepository } from './repository/ad-aside-type-attributes.repository';
-import { AdCommentTypeAttributesRepository } from './repository/ad-comment-type-attributes.repository';
-import { AdPostTypeAttributesRepository } from './repository/ad-post-type-attributes.respository';
-import { AdsRepository } from './repository/ads.repository';
-import { AdsService } from './services/ads.service';
+import { AdContentsController } from './controllers/ad-contents.controller';
+import { PostAdsController } from './controllers/post-ad.controller';
+import { AdContentsRepository } from './repository/ad-contents.repository';
+import { PostAdsRepository } from './repository/post-ads.repository';
+import { AdContentsService } from './services/ad-contents.service';
+import { PostAdsService } from './services/post-ads.service';
 
 @Module({
-  controllers: [AdsController],
+  controllers: [AdContentsController, PostAdsController],
   providers: [
-    AdsService,
-    AdsRepository,
-    AdAsideTypeAttributesRepository,
-    AdCommentTypeAttributesRepository,
-    AdPostTypeAttributesRepository,
+    AdContentsService,
+    AdContentsRepository,
+    PostAdsService,
+    PostAdsRepository,
   ],
 })
 export class AdsModule {}
