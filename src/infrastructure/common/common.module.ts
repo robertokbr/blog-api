@@ -1,6 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { jwtConfig } from '../configs/jwt.config';
 import { PrismaService } from './prisma/prisma.service';
 import { AuthenticatorJwtStrategy } from './strategies/jwt.strategy';
 
@@ -9,7 +10,7 @@ import { AuthenticatorJwtStrategy } from './strategies/jwt.strategy';
   imports: [
     PassportModule,
     JwtModule.register({
-      secret: 'morenas2',
+      secret: jwtConfig.secret,
       signOptions: { expiresIn: '7d' },
     }),
   ],
