@@ -17,7 +17,7 @@ import { RolesGuard } from '../../../common/guards/roles.guard';
 import { AdContentsService } from '../services/ad-contents.service';
 
 @ApiTags('ads')
-@Controller('ads/contents')
+@Controller('ads')
 export class AdContentsController {
   constructor(private readonly adContentsService: AdContentsService) {}
 

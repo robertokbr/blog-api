@@ -11,8 +11,10 @@ export class PostAdsService {
     return this.postAdsRepository.create(createPostAdDto);
   }
 
-  public async findAll(): Promise<PostAdDto[]> {
-    return this.postAdsRepository.findAll();
+  public async findAllPostAd(postId: number): Promise<PostAdDto[]> {
+    return this.postAdsRepository.findAll({
+      postId,
+    });
   }
 
   public async delete(id: number): Promise<void> {

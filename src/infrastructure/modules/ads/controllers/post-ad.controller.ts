@@ -31,10 +31,10 @@ export class PostAdsController {
     return this.postAdsService.create(createPostAdDto);
   }
 
-  @Get()
+  @Get(':id')
   @ApiResponse({ type: [PostAdDto] })
-  findAll(): Promise<PostAdDto[]> {
-    return this.postAdsService.findAll();
+  findAllPostAds(@Param() postId: number): Promise<PostAdDto[]> {
+    return this.postAdsService.findAllPostAd(postId);
   }
 
   @Delete(':id')

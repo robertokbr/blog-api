@@ -15,8 +15,12 @@ export class PostAdsRepository {
     });
   }
 
-  public async findAll(): Promise<PostAdDto[]> {
-    return this.client.postAds.findMany();
+  public async findAll(data: Partial<PostAdDto>): Promise<PostAdDto[]> {
+    return this.client.postAds.findMany({
+      where: {
+        ...data,
+      },
+    });
   }
 
   public async delete(id: number): Promise<void> {
