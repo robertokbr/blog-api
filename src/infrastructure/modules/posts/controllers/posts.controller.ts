@@ -20,6 +20,9 @@ import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../../common/guards/roles.guard';
 import { RequireRole } from '../../../common/decorators/require-role.decorator';
 import { Role } from '../../../../domain/modules/users/enums/role.enum';
+import { NonBlockingJwtAuthGuard } from '../../../../infrastructure/common/guards/non-blocking-jwt-auth.guard';
+import { GetUser } from '../../../../infrastructure/common/decorators/get-user.decorator';
+import { UserDto } from '../../../../domain/modules/users/dto/user.dto';
 
 @ApiTags('posts')
 @Controller('posts')
@@ -42,10 +45,16 @@ export class PostsController {
     return this.postsService.findAll(findPostByQueryDto);
   }
 
+  @UseGuards(NonBlockingJwtAuthGuard)
+  @ApiBearerAuth()
   @Get('/bySlug/:slug')
   @ApiResponse({ type: PostDto })
-  findOne(@Param('slug') slug: string): Promise<PostDto> {
-    return this.postsService.findOne(slug);
+  findOne(
+    @Param('slug') slug: string,
+    @GetUser() user: UserDto,
+  ): Promise<PostDto> {
+    console.log(user);
+    return this.postsService.findOne(slug, user?.id);
   }
 
   @Patch(':id')

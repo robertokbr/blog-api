@@ -58,11 +58,11 @@ export class PostsService {
     return this.postsRepository.findAll(findPostByQueryDto);
   }
 
-  public async findOne(slug: string): Promise<PostDto> {
+  public async findOne(slug: string, userId: number): Promise<PostDto> {
     const post = await this.postsRepository.findBySlug(slug);
     await this.postAccessRepository.create({
       postSlug: slug,
-      userId: undefined, // TODO: should be the jwt user when it get implemented
+      userId,
     });
 
     return post;
