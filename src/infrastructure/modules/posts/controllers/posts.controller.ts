@@ -23,11 +23,26 @@ import { Role } from '../../../../domain/modules/users/enums/role.enum';
 import { NonBlockingJwtAuthGuard } from '../../../../infrastructure/common/guards/non-blocking-jwt-auth.guard';
 import { GetUser } from '../../../../infrastructure/common/decorators/get-user.decorator';
 import { UserDto } from '../../../../domain/modules/users/dto/user.dto';
+import { PostAcessDto } from 'src/domain/modules/posts/dto/post-acess.dto';
 
 @ApiTags('posts')
 @Controller('posts')
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
+
+  @Get('/tags')
+  @ApiResponse({ type: [PostTagDto] })
+  findAllPostTags(): Promise<PostTagDto[]> {
+    return this.postsService.findAllPostTags();
+  }
+
+  @Get('/:slug/metrics')
+  @ApiResponse({ type: [PostAcessDto] })
+  public async findAllPostAccess(
+    @Param('slug') slug: string,
+  ): Promise<PostAcessDto[]> {
+    return this.postsService.findPostAccesses(slug);
+  }
 
   @Post()
   @UseGuards(RolesGuard)
@@ -47,7 +62,7 @@ export class PostsController {
 
   @UseGuards(NonBlockingJwtAuthGuard)
   @ApiBearerAuth()
-  @Get('/bySlug/:slug')
+  @Get('/:slug')
   @ApiResponse({ type: PostDto })
   findOne(
     @Param('slug') slug: string,
@@ -78,12 +93,5 @@ export class PostsController {
   @ApiResponse({ type: PostDto })
   delete(@Param('id') id: string): Promise<PostDto> {
     return this.postsService.delete(+id);
-  }
-
-  @Get('/tags')
-  @ApiTags('tags')
-  @ApiResponse({ type: [PostTagDto] })
-  findAllPostTags(): Promise<PostTagDto[]> {
-    return this.postsService.findAllPostTags();
   }
 }

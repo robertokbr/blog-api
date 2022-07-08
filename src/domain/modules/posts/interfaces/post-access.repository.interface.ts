@@ -7,4 +7,4 @@ import { PostAcessDto } from '../dto/post-acess.dto';
 
 export interface IPostAccessRepository
   extends CreateEntity<PostAcessDto, CreatePostAccessDto>,
-    FindAllEntity<PostAcessDto> {}
+    FindAllEntity<PostAcessDto, Partial<PostAcessDto>> {}

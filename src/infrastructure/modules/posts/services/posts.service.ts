@@ -9,6 +9,7 @@ import { PostTagsRepository } from '../repositories/post-tags.repository';
 import { PostTagDto } from '../../../../domain/modules/posts/dto/post-tag.dto';
 import { PostAccessRepository } from '../repositories/post-access.repository';
 import { textToSlugUtil } from '../../../common/utils/text-to-slug.util';
+import { PostAcessDto } from 'src/domain/modules/posts/dto/post-acess.dto';
 
 @Injectable()
 export class PostsService {
@@ -91,5 +92,11 @@ export class PostsService {
     });
 
     return [...filteredTags];
+  }
+
+  public async findPostAccesses(postSlug: string): Promise<PostAcessDto[]> {
+    return this.postAccessRepository.findAll({
+      postSlug,
+    });
   }
 }

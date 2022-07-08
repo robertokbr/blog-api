@@ -20,7 +20,11 @@ export class PostAccessRepository implements IPostAccessRepository {
     });
   }
 
-  public async findAll(): Promise<PostAcessDto[]> {
-    return this.client.postAccess.findMany();
+  public async findAll(data: Partial<PostAcessDto>): Promise<PostAcessDto[]> {
+    return this.client.postAccess.findMany({
+      where: {
+        ...data,
+      },
+    });
   }
 }
