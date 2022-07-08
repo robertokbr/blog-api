@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { NestFactory } from '@nestjs/core';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
@@ -19,7 +19,9 @@ async function bootstrap() {
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe(validationPripeConfig));
   app.useGlobalInterceptors(new LoggingInterceptor(app.get(PinoLogger)));
-  app.useGlobalFilters(new AllExceptionFilter(app.get(PinoLogger)));
+  app.useGlobalFilters(
+    new AllExceptionFilter(app.get(PinoLogger), app.get(HttpAdapterHost)),
+  );
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('docs', app, document);
   await app.listen(apiConfig.port);
