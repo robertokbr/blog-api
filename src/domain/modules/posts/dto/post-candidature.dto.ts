@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsNumber } from 'class-validator';
 import { DtoBase } from '../../../common/base/dto.base';
-import { PostCandidatureStates } from '../enums/post-candidature-states.enum';
+import { PostCandidatureState } from '../enums/post-candidature-state.enum';
 
 export class PostCandidatureDto extends DtoBase {
   @IsNumber()
@@ -12,10 +12,10 @@ export class PostCandidatureDto extends DtoBase {
   @ApiProperty()
   postId: number;
 
-  @IsEnum(PostCandidatureStates)
+  @IsEnum(PostCandidatureState)
   @ApiProperty({
-    enum: PostCandidatureStates,
-    default: PostCandidatureStates.WAITING,
+    enum: PostCandidatureState,
+    default: PostCandidatureState.WAITING,
   })
-  state: PostCandidatureStates = PostCandidatureStates.WAITING;
+  state: PostCandidatureState = PostCandidatureState.WAITING;
 }

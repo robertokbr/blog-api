@@ -1,4 +1,4 @@
-export enum PostCandidatureStates {
+export enum PostCandidatureState {
   ACCEPTED = 'ACCEPTED',
   DENIED = 'DENIED',
   WAITING = 'WAITING',

@@ -22,11 +22,6 @@ export class PostDto extends DtoBase {
   @ApiProperty({ required: false })
   link?: string;
 
-  @IsNumber()
-  @IsOptional()
-  @ApiProperty({ required: false })
-  participation?: number;
-
   @IsString()
   @ApiProperty()
   title: string;
@@ -39,11 +34,6 @@ export class PostDto extends DtoBase {
   @IsOptional()
   @ApiProperty({ required: false })
   description?: string;
-
-  @IsNumber()
-  @IsOptional()
-  @ApiProperty({ required: false })
-  availlablePositions?: number;
 
   @IsNumber()
   @ApiProperty()
