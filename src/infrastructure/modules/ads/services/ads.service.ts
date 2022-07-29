@@ -1,23 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { AdContentDto } from 'src/domain/modules/ads/dto/ad-content.dto';
 import { CreateAdContentDto } from 'src/domain/modules/ads/dto/create-ad-content.dto';
-import { AdContentsRepository } from '../repository/ad-contents.repository';
+import { AdsRepository } from '../repository/ads.repository';
 
 @Injectable()
-export class AdContentsService {
-  constructor(private readonly adContentsRepository: AdContentsRepository) {}
+export class AdsService {
+  constructor(private readonly adsRepository: AdsRepository) {}
 
   public async create(
     createAdContentDto: CreateAdContentDto,
   ): Promise<AdContentDto> {
-    return this.adContentsRepository.create(createAdContentDto);
+    return this.adsRepository.create(createAdContentDto);
   }
 
   public async findAll(): Promise<AdContentDto[]> {
-    return this.adContentsRepository.findAll();
+    return this.adsRepository.findAll();
   }
 
   public async delete(id: number): Promise<void> {
-    return this.adContentsRepository.delete(id);
+    return this.adsRepository.delete(id);
   }
 }

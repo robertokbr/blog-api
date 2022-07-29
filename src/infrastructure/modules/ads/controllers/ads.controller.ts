@@ -14,12 +14,12 @@ import { Role } from '../../../../domain/modules/users/enums/role.enum';
 import { RequireRole } from '../../../common/decorators/require-role.decorator';
 import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../../common/guards/roles.guard';
-import { AdContentsService } from '../services/ad-contents.service';
+import { AdsService } from '../services/ads.service';
 
 @ApiTags('ads')
 @Controller('ads')
-export class AdContentsController {
-  constructor(private readonly adContentsService: AdContentsService) {}
+export class AdsController {
+  constructor(private readonly adsService: AdsService) {}
 
   @Post()
   @UseGuards(RolesGuard)
@@ -30,13 +30,13 @@ export class AdContentsController {
   create(
     @Body() createAdContentDto: CreateAdContentDto,
   ): Promise<AdContentDto> {
-    return this.adContentsService.create(createAdContentDto);
+    return this.adsService.create(createAdContentDto);
   }
 
   @Get()
   @ApiResponse({ type: [AdContentDto] })
   findAll(): Promise<AdContentDto[]> {
-    return this.adContentsService.findAll();
+    return this.adsService.findAll();
   }
 
   @Delete(':id')
@@ -46,6 +46,6 @@ export class AdContentsController {
   @ApiBearerAuth()
   @ApiResponse({ type: null })
   update(@Param('id') id: string): Promise<void> {
-    return this.adContentsService.delete(+id);
+    return this.adsService.delete(+id);
   }
 }
