@@ -25,18 +25,19 @@ import { GetUser } from '../../../../infrastructure/common/decorators/get-user.d
 import { UserDto } from '../../../../domain/modules/users/dto/user.dto';
 import { PostAcessDto } from 'src/domain/modules/posts/dto/post-acess.dto';
 
-@ApiTags('posts')
 @Controller('posts')
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
+  @ApiTags('tags')
   @Get('/tags')
   @ApiResponse({ type: [PostTagDto] })
   findAllPostTags(): Promise<PostTagDto[]> {
     return this.postsService.findAllPostTags();
   }
 
-  @Get('/:slug/metrics')
+  @ApiTags('accesses')
+  @Get('/:slug/accesses')
   @ApiResponse({ type: [PostAcessDto] })
   public async findAllPostAccess(
     @Param('slug') slug: string,
@@ -44,6 +45,7 @@ export class PostsController {
     return this.postsService.findPostAccesses(slug);
   }
 
+  @ApiTags('posts')
   @Post()
   @UseGuards(RolesGuard)
   @UseGuards(JwtAuthGuard)
@@ -54,12 +56,14 @@ export class PostsController {
     return this.postsService.create(createPostDto);
   }
 
+  @ApiTags('posts')
   @Get()
   @ApiResponse({ type: [PostDto] })
   findAll(@Query() findPostByQueryDto: FindPostByQueryDto): Promise<PostDto[]> {
     return this.postsService.findAll(findPostByQueryDto);
   }
 
+  @ApiTags('posts')
   @UseGuards(NonBlockingJwtAuthGuard)
   @ApiBearerAuth()
   @Get('/:slug')
@@ -72,6 +76,7 @@ export class PostsController {
     return this.postsService.findOne(slug, user?.id);
   }
 
+  @ApiTags('posts')
   @Patch(':id')
   @UseGuards(RolesGuard)
   @UseGuards(JwtAuthGuard)
@@ -85,6 +90,7 @@ export class PostsController {
     return this.postsService.update(+id, updatePostDto);
   }
 
+  @ApiTags('posts')
   @Delete(':id')
   @UseGuards(RolesGuard)
   @UseGuards(JwtAuthGuard)
