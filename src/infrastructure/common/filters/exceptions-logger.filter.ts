@@ -7,6 +7,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
+import * as Sentry from '@sentry/node';
 
 interface IError {
   message: string;
@@ -45,6 +46,8 @@ export class AllExceptionFilter implements ExceptionFilter {
     };
 
     this.logMessage(request, message, status, exception);
+    Sentry.captureException(exception);
+    Sentry.captureMessage(message.message);
 
     httpAdapter.reply(ctx.getResponse(), responseBody, status);
   }
