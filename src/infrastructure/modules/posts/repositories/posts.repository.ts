@@ -98,19 +98,16 @@ export class PostsRepository implements IPostRepository {
           {
             title: {
               contains: text,
-              mode: 'insensitive',
             },
           },
           {
             description: {
               contains: text,
-              mode: 'insensitive',
             },
           },
           {
             content: {
               contains: text,
-              mode: 'insensitive',
             },
           },
         ],
