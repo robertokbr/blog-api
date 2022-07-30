@@ -13,8 +13,6 @@ import { PostAcessDto } from 'src/domain/modules/posts/dto/post-acess.dto';
 
 @Injectable()
 export class PostsService {
-  private logger = new Logger(PostsService.name);
-
   constructor(
     private readonly postsRepository: PostsRepository,
     private readonly postRatesRepository: PostRatesRepository,
