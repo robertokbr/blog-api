@@ -10,19 +10,27 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { PostsService } from '../services/posts.service';
-import { CreatePostDto } from '../../../../domain/modules/posts/dto/create-post.dto';
-import { UpdatePostDto } from '../../../../domain/modules/posts/dto/update-post.dto';
-import { PostDto } from '../../../../domain/modules/posts/dto/post.dto';
-import { FindPostByQueryDto } from '../../../../domain/modules/posts/dto/find-post-by-query.dto';
-import { PostTagDto } from '../../../../domain/modules/posts/dto/post-tag.dto';
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
-import { RolesGuard } from '../../../common/guards/roles.guard';
-import { RequireRole } from '../../../common/decorators/require-role.decorator';
-import { Role } from '../../../../domain/modules/users/enums/role.enum';
-import { NonBlockingJwtAuthGuard } from '../../../../infrastructure/common/guards/non-blocking-jwt-auth.guard';
-import { GetUser } from '../../../../infrastructure/common/decorators/get-user.decorator';
-import { UserDto } from '../../../../domain/modules/users/dto/user.dto';
+import { ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { GetUser } from 'src/modules/common/decorators/get-user.decorator';
+import { RequireRole } from 'src/modules/common/decorators/require-role.decorator';
+import { JwtAuthGuard } from 'src/modules/common/guards/jwt-auth.guard';
+import { NonBlockingJwtAuthGuard } from 'src/modules/common/guards/non-blocking-jwt-auth.guard';
+import { RolesGuard } from 'src/modules/common/guards/roles.guard';
+import { UserDto } from 'src/modules/users/dto/user.dto';
+import { CommentRateDto } from '../dto/comment-rate.dto';
+import { CommentDto } from '../dto/comment.dto';
+import { CreateCommentRateDto } from '../dto/create-comment-rate.dto';
+import { CreateCommentDto } from '../dto/create-comment.dto';
+import { CreatePostRateDto } from '../dto/create-post-rate.dto';
+import { CreatePostDto } from '../dto/create-post.dto';
+import { FindPostByQueryDto } from '../dto/find-post-by-query.dto';
+import { PostRateDto } from '../dto/post-rate.dto';
+import { PostTagDto } from '../dto/post-tag.dto';
+import { PostDto } from '../dto/post.dto';
+import { UpdatePostDto } from '../dto/update-post.dto';
+import { PostCommentsService } from '../services/post-comments.service';
+import { PostRatesService } from '../services/post-rates.service';
+import { Role } from 'src/modules/users/enums/role.enum';
 
 @Controller('posts')
 export class PostsController {
@@ -123,7 +131,7 @@ export class PostsController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiResponse({ type: PostRateDto })
-  public async create(
+  public async createRate(
     @Body() createPostRateDto: CreatePostRateDto,
   ): Promise<PostRateDto> {
     return this.postRatesService.create(createPostRateDto);

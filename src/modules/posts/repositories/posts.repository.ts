@@ -1,14 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePostDto } from '../../../../domain/modules/posts/dto/create-post.dto';
-import { UpdatePostDto } from '../../../../domain/modules/posts/dto/update-post.dto';
-import { FindPostByQueryDto } from '../../../../domain/modules/posts/dto/find-post-by-query.dto';
-import { PrismaService } from '../../../common/prisma/prisma.service';
-import { IPostRepository } from '../../../../domain/modules/posts/interfaces/post.repository.interface';
-import { PostDto } from '../../../../domain/modules/posts/dto/post.dto';
+import { PrismaService } from 'src/modules/common/prisma/prisma.service';
+import { CreatePostDto } from '../dto/create-post.dto';
+import { FindPostByQueryDto } from '../dto/find-post-by-query.dto';
+import { PostDto } from '../dto/post.dto';
+import { UpdatePostDto } from '../dto/update-post.dto';
 
 @Injectable()
 export class PostsRepository {
   constructor(private readonly client: PrismaService) {}
+
+  public async findById(id: number): Promise<PostDto> {
+    return this.client.posts.findUnique({
+      where: { id },
+    });
+  }
 
   public async create({ tags, ...dto }: CreatePostDto): Promise<PostDto> {
     return this.client.posts.create({
@@ -30,9 +35,12 @@ export class PostsRepository {
         ...dto,
         tags: {
           deleteMany: { postId: id },
-          createMany: {
-            data: tags?.map((tag) => ({ name: tag })),
-          },
+          ...(data?.tags &&
+            data.tags.length > 0 && {
+              createMany: {
+                data: tags?.map((tag) => ({ name: tag })),
+              },
+            }),
         },
       },
     });
@@ -56,11 +64,6 @@ export class PostsRepository {
             },
           },
         },
-        candidatures: {
-          include: {
-            user: true,
-          },
-        },
       },
     }) as Promise<PostDto>;
   }
@@ -82,7 +85,6 @@ export class PostsRepository {
         user: true,
         rates: true,
         comments: true,
-        candidatures: true,
         tags: true,
       },
       orderBy: {
@@ -116,7 +118,6 @@ export class PostsRepository {
         user: true,
         rates: true,
         comments: true,
-        candidatures: true,
         tags: true,
       },
       orderBy: {

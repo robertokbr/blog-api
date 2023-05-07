@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsString } from 'class-validator';
-import { DtoBase } from '../../../common/base/dto.base';
+import { DtoBase } from 'src/modules/common/dtos/dto.base';
 
 export class PostTagDto extends DtoBase {
   @IsString()

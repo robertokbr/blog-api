@@ -1,11 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../../common/prisma/prisma.service';
-import { CreatePostRateDto } from '../../../../domain/modules/posts/dto/create-post-rate.dto';
-import { PostRateDto } from '../../../../domain/modules/posts/dto/post-rate.dto';
-import { UpdatePostRateDto } from '../../../../domain/modules/posts/dto/update-post-rate.dto';
-import { FindUserRatedPostsDto } from '../../../../domain/modules/posts/dto/find-user-rated-posts.dto';
-import { IPostRatesRepository } from '../../../../domain/modules/posts/interfaces/post-rates.repository.interface';
-import { UserRatedPostDto } from '../../../../domain/modules/posts/dto/user-rated-post.dto';
+import { PrismaService } from 'src/modules/common/prisma/prisma.service';
+import { CreatePostRateDto } from '../dto/create-post-rate.dto';
+import { PostRateDto } from '../dto/post-rate.dto';
+import { UpdatePostRateDto } from '../dto/update-post-rate.dto';
 
 @Injectable()
 export class PostRatesRepository {

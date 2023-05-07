@@ -9,6 +9,8 @@ import { PostsRepository } from './repositories/posts.repository';
 import { PostCommentsService } from './services/post-comments.service';
 import { PostRatesService } from './services/post-rates.service';
 import { PostsService } from './services/posts.service';
+import { StabilityAIImageGeneratorProvider } from './providers/image-generator.provider';
+import { S3BucketProvider } from './providers/bucket.provider';
 
 @Module({
   controllers: [PostsController],
@@ -22,6 +24,8 @@ import { PostsService } from './services/posts.service';
     PostRatesService,
     PostCommentsService,
     PostAccessRepository,
+    StabilityAIImageGeneratorProvider,
+    S3BucketProvider,
   ],
 })
 export class PostsModule {}

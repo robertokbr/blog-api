@@ -1,11 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsOptional, IsString } from 'class-validator';
-import { DtoBase } from '../../../common/base/dto.base';
 import { UserDto } from '../../users/dto/user.dto';
 import { CommentDto } from './comment.dto';
 import { PostCandidatureDto } from './post-candidature.dto';
 import { PostRateDto } from './post-rate.dto';
 import { PostTagDto } from './post-tag.dto';
+import { DtoBase } from 'src/modules/common/dtos/dto.base';
 
 export class PostDto extends DtoBase {
   @IsString()

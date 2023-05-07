@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsNumber } from 'class-validator';
-import { DtoBase } from '../../../common/base/dto.base';
 import { PostCandidatureState } from '../enums/post-candidature-state.enum';
+import { DtoBase } from 'src/modules/common/dtos/dto.base';
 
 export class PostCandidatureDto extends DtoBase {
   @IsNumber()
