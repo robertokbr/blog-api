@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './infrastructure/modules/users/users.module';
-import { PostsModule } from './infrastructure/modules/posts/posts.module';
 import { LoggerModule } from 'nestjs-pino';
-import { CommonModule } from './infrastructure/common/common.module';
 import { pinoConfig } from './configs/pino.config';
+import { CommonModule } from './modules/common/common.module';
+import { PostsModule } from './modules/posts/posts.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
