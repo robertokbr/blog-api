@@ -1,9 +1,9 @@
 import {
   CreateEntity,
+  UpdateEntity,
   DeleteEntity,
   FindAllEntity,
-  UpdateEntity,
-} from '../../../common/base/repository.base';
+} from 'src/modules/common/dtos/repository.base';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserDto } from '../dto/user.dto';
