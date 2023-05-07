@@ -1,9 +1,9 @@
 import { Global, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { jwtConfig } from '../configs/jwt.config';
 import { PrismaService } from './prisma/prisma.service';
 import { AuthenticatorJwtStrategy } from './strategies/jwt.strategy';
+import { jwtConfig } from 'src/configs/jwt.config';
 
 @Global()
 @Module({
