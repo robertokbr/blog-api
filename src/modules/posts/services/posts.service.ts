@@ -1,24 +1,71 @@
-import { Injectable } from '@nestjs/common';
-import { CreatePostDto } from '../../../../domain/modules/posts/dto/create-post.dto';
-import { FindPostByQueryDto } from '../../../../domain/modules/posts/dto/find-post-by-query.dto';
-import { PostDto } from '../../../../domain/modules/posts/dto/post.dto';
-import { UpdatePostDto } from '../../../../domain/modules/posts/dto/update-post.dto';
-import { PostsRepository } from '../repositories/posts.repository';
-import { PostTagsRepository } from '../repositories/post-tags.repository';
-import { PostTagDto } from '../../../../domain/modules/posts/dto/post-tag.dto';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { textToSlugUtil } from 'src/shared/utils/text-to-slug.util';
+import { CreatePostDto } from '../dto/create-post.dto';
+import { FindPostByQueryDto } from '../dto/find-post-by-query.dto';
+import { PostTagDto } from '../dto/post-tag.dto';
+import { PostDto } from '../dto/post.dto';
+import { UpdatePostDto } from '../dto/update-post.dto';
 import { PostAccessRepository } from '../repositories/post-access.repository';
-import { textToSlugUtil } from '../../../common/utils/text-to-slug.util';
+import { PostTagsRepository } from '../repositories/post-tags.repository';
+import { PostsRepository } from '../repositories/posts.repository';
+import { S3BucketProvider } from '../providers/bucket.provider';
+import { StabilityAIImageGeneratorProvider } from '../providers/image-generator.provider';
 
 @Injectable()
 export class PostsService {
+  private readonly logger = new Logger(PostsService.name);
   constructor(
     private readonly postsRepository: PostsRepository,
     private readonly postTagsRepository: PostTagsRepository,
     private readonly postAccessRepository: PostAccessRepository,
+    private readonly imageGeneratorProvider: StabilityAIImageGeneratorProvider,
+    private readonly bucketProvider: S3BucketProvider,
   ) {}
+
+  private async generateImage(
+    post: Partial<Omit<CreatePostDto, 'tags'>>,
+    slug: string,
+  ) {
+    const content = post.content;
+
+    const prompts = content.match(/(?<=\{\{)(.*?)(?=\}\})/g);
+
+    if (prompts.length > 0) {
+      const urls: string[] = [];
+
+      const promises = prompts.map(async (prompt) => {
+        const promptRegExp = new RegExp(`{{${prompt}}}`, 'g');
+
+        try {
+          const imagePath = await this.imageGeneratorProvider.generate(
+            prompt,
+            slug,
+          );
+
+          const url = await this.bucketProvider.uploadFile(imagePath);
+
+          post.content = content.replace(promptRegExp, `![${prompt}](${url})`);
+
+          urls.push(url);
+        } catch (err) {
+          this.logger.error(err);
+          post.content = content.replace(promptRegExp, '');
+        }
+      });
+
+      await Promise.all(promises);
+
+      if (urls.length > 0) {
+        post.image = urls[0];
+      }
+    }
+  }
 
   public async create(createPostDto: CreatePostDto): Promise<PostDto> {
     const slug = textToSlugUtil(createPostDto.title);
+
+    await this.generateImage(createPostDto, slug);
+
     return this.postsRepository.create({ ...createPostDto, slug });
   }
 
@@ -40,7 +87,7 @@ export class PostsService {
 
   public async findOne(slug: string, userId: number): Promise<PostDto> {
     const post = await this.postsRepository.findBySlug(slug);
-    
+
     await this.postAccessRepository.create({
       postSlug: slug,
       userId,
@@ -53,6 +100,15 @@ export class PostsService {
     id: number,
     updatePostDto: UpdatePostDto,
   ): Promise<PostDto> {
+    const post = await this.postsRepository.findById(id);
+
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+    await this.generateImage(updatePostDto, post.slug);
+
+    console.log(updatePostDto);
+
     return this.postsRepository.update(id, updatePostDto);
   }
 
