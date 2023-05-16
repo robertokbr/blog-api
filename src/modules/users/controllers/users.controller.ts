@@ -14,7 +14,6 @@ import { GetUser } from 'src/modules/common/decorators/get-user.decorator';
 import { RequireRole } from 'src/modules/common/decorators/require-role.decorator';
 import { JwtAuthGuard } from 'src/modules/common/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/modules/common/guards/roles.guard';
-import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserDto } from '../dto/user.dto';
 import { Role } from '../enums/role.enum';
@@ -26,10 +25,15 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiResponse({ type: UserDto })
-  create(@Body() createUserDto: CreateUserDto): Promise<UserDto> {
-    return this.usersService.create(createUserDto);
+  create(@GetUser() user: UserDto): Promise<UserDto> {
+    return this.usersService.findOrCreate({
+      email: user.email,
+      name: user.name,
+      image: user.image,
+    });
   }
 
   @Get()
@@ -40,12 +44,6 @@ export class UsersController {
   @ApiResponse({ type: UserDto })
   findAll(@Query() userDto: Partial<UserDto>): Promise<UserDto[]> {
     return this.usersService.findAll(userDto);
-  }
-
-  @Get(':email')
-  @ApiResponse({ type: UserDto })
-  findOne(@Param('email') email: string): Promise<UserDto> {
-    return this.usersService.findOne(email);
   }
 
   @Patch(':id')

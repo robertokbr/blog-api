@@ -8,16 +8,20 @@ import { UserDto } from '../dto/user.dto';
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
-  async create(createUserDto: CreateUserDto): Promise<UserDto> {
+  private findOne(email: string): Promise<UserDto> {
+    return this.usersRepository.findByEmail(email);
+  }
+
+  async findOrCreate(createUserDto: CreateUserDto): Promise<UserDto> {
+    const user = await this.findOne(createUserDto.email);
+
+    if (user) return user;
+
     return this.usersRepository.create(createUserDto);
   }
 
   async findAll(query: Partial<UserDto>): Promise<UserDto[]> {
     return this.usersRepository.findAll(query) as Promise<UserDto[]>;
-  }
-
-  async findOne(email: string): Promise<UserDto> {
-    return this.usersRepository.findByEmail(email);
   }
 
   async update(

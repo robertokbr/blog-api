@@ -45,7 +45,7 @@ describe('UsersService', () => {
 
   describe('crreate', () => {
     it('it shoud be able to create a user', async () => {
-      const user = await service.create(createUserDto);
+      const user = await service.findOrCreate(createUserDto);
 
       expect(user).toEqual(mockUser);
       expect(mockUsersRepository.create).toHaveBeenCalledWith(createUserDto);
