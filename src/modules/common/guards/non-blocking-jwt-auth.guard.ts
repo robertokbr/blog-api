@@ -69,7 +69,7 @@ export class NonBlockingJwtAuthGuard implements CanActivate {
         const message = await data.text();
         this.logger.error('Invalid token', message);
 
-        return false;
+        return true;
       }
 
       const json = await data.json();
