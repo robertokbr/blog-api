@@ -12,6 +12,7 @@ export class CreatePostDto extends OmitType(PostDto, [
   'candidatures',
   'tags',
   'slug',
+  'userId',
 ]) {
   @IsArray()
   @IsOptional()
