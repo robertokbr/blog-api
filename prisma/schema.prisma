@@ -30,7 +30,6 @@ model Users {
   comments Comments[]
   postRates PostRates[]
   commentRates CommentRates[]
-  candidatures PostCandidatures[]
   acess PostAccess[]
 }
 
@@ -49,9 +48,10 @@ model Posts {
   user Users? @relation(fields: [userId], references: [id], onDelete: Cascade)
   comments Comments[]
   rates PostRates[]
-  candidatures PostCandidatures[]
   tags PostTags[]
   acess PostAccess[]
+
+  @@index([userId])
 }
 
 model PostTags {
@@ -62,24 +62,8 @@ model PostTags {
   updatedAt DateTime @default(now())
 
   post Posts @relation(fields: [postId], references: [id], onDelete: Cascade)
-}
 
-enum PostCandidatureState {
-  ACCEPTED
-  DENIED
-  WAITING
-}
-
-model PostCandidatures {
-  id Int @id @default(autoincrement())
-  userId Int
-  postId Int
-  state  PostCandidatureState @default(WAITING)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-
-  user Users? @relation(fields: [userId], references: [id], onDelete: Cascade)
-  post Posts? @relation(fields: [postId], references: [id], onDelete: Cascade)
+  @@index([postId])
 }
 
 model PostRates {  
@@ -90,6 +74,9 @@ model PostRates {
 
   user Users? @relation(fields: [userId], references: [id], onDelete: Cascade)
   post Posts? @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([postId])
+  @@index([userId])
 }
 
 model Comments {
@@ -103,6 +90,9 @@ model Comments {
   user Users? @relation(fields: [userId], references: [id], onDelete: Cascade)
   post Posts? @relation(fields: [postId], references: [id], onDelete: Cascade)
   rates CommentRates[]
+
+  @@index([postId])
+  @@index([userId])
 }
 
 model CommentRates {  
@@ -113,59 +103,9 @@ model CommentRates {
 
   user Users? @relation(fields: [userId], references: [id], onDelete: Cascade)
   comment Comments? @relation(fields: [commentId], references: [id], onDelete: Cascade)
-}
 
-enum AdType {
-  POST
-  COMMENT
-  ASIDE
-}
-
-model AdContents {
-  id Int @id @default(autoincrement())
-  link String
-  title String
-  image String?
-  description String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-
-  feedAds FeedAds[]
-  postAds PostAds[]
-  commentAds AsideAds[] 
-}
-
-model FeedAds {
-  id Int @id @default(autoincrement())
-  adContentId Int?
-  isAvailable Boolean @default(true)
-  frequency Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  
-  adContent AdContents? @relation(fields: [adContentId], references: [id], onDelete: Cascade)
-}
-
-model PostAds {
-  id Int @id @default(autoincrement())
-  adContentId Int?
-  isAvailable Boolean @default(true)
-  postId Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  adContent AdContents? @relation(fields: [adContentId], references: [id], onDelete: Cascade)
-}
-
-model AsideAds {
-  id Int @id @default(autoincrement())
-  adContentId Int?
-  isAvailable Boolean @default(true)
-  campaignTime Int?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  
-  adContent AdContents? @relation(fields: [adContentId], references: [id], onDelete: Cascade)
+  @@index([commentId])
+  @@index([userId])
 }
 
 model PostAccess {
@@ -177,4 +117,7 @@ model PostAccess {
 
   user Users? @relation(fields: [userId], references: [id])
   post Posts? @relation(fields: [postSlug], references: [slug])
+
+  @@index([userId])
+  @@index([postSlug])
 }

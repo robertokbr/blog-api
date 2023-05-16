@@ -26,11 +26,10 @@
     "db:show": "npx prisma studio"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.326.0",
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
-    "@nestjs/jwt": "^8.0.0",
     "@nestjs/mapped-types": "*",
-    "@nestjs/passport": "^8.2.1",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/swagger": "^5.2.0",
     "@prisma/client": "^3.11.0",
@@ -40,8 +39,6 @@
     "class-validator": "^0.13.2",
     "dotenv": "^16.0.1",
     "nestjs-pino": "^2.5.2",
-    "passport": "^0.5.2",
-    "passport-jwt": "^4.0.0",
     "pino-http": "^7.0.0",
     "pino-http-print": "^3.1.0",
     "reflect-metadata": "^0.1.13",
