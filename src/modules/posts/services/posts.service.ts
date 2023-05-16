@@ -39,17 +39,20 @@ export class PostsService {
         try {
           const imagePath = await this.imageGeneratorProvider.generate(
             prompt,
-            slug,
+            `${slug}-${Date.now()}`,
           );
 
           const url = await this.bucketProvider.uploadFile(imagePath);
 
-          post.content = content.replace(promptRegExp, `![${prompt}](${url})`);
+          post.content = post.content.replace(
+            promptRegExp,
+            `![${prompt}](${url})`,
+          );
 
           urls.push(url);
         } catch (err) {
           this.logger.error(err);
-          post.content = content.replace(promptRegExp, '');
+          post.content = post.content.replace(promptRegExp, '');
         }
       });
 

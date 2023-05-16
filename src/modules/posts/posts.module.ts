@@ -11,6 +11,7 @@ import { PostRatesService } from './services/post-rates.service';
 import { PostsService } from './services/posts.service';
 import { StabilityAIImageGeneratorProvider } from './providers/image-generator.provider';
 import { S3BucketProvider } from './providers/bucket.provider';
+import { UsersRepository } from '../users/repositories/users.repository';
 
 @Module({
   controllers: [PostsController],
@@ -26,6 +27,7 @@ import { S3BucketProvider } from './providers/bucket.provider';
     PostAccessRepository,
     StabilityAIImageGeneratorProvider,
     S3BucketProvider,
+    UsersRepository,
   ],
 })
 export class PostsModule {}

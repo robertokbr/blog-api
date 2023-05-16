@@ -54,7 +54,12 @@ export class PostsController {
   @RequireRole(Role.ADMIN)
   @ApiBearerAuth()
   @ApiResponse({ type: PostDto })
-  create(@Body() createPostDto: CreatePostDto): Promise<PostDto> {
+  create(
+    @Body() createPostDto: CreatePostDto,
+    @GetUser() user: UserDto,
+  ): Promise<PostDto> {
+    createPostDto['userId'] = +user.id;
+
     return this.postsService.create(createPostDto);
   }
 
