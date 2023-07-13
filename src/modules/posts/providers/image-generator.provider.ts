@@ -51,7 +51,7 @@ export class StabilityAIImageGeneratorProvider {
           cfg_scale: 7,
           clip_guidance_preset: 'FAST_BLUE',
           height: 512,
-          width: 512,
+          width: 1024,
           samples: 1,
           steps: 30,
         }),
