@@ -30,7 +30,7 @@ export class PostsService {
 
     const prompts = content.match(/(?<=\{\{)(.*?)(?=\}\})/g);
 
-    if (prompts.length > 0) {
+    if (prompts?.length > 0) {
       const urls: string[] = [];
 
       const promises = prompts.map(async (prompt) => {
@@ -58,7 +58,7 @@ export class PostsService {
 
       await Promise.all(promises);
 
-      if (urls.length > 0) {
+      if (urls?.length > 0) {
         post.image = urls[0];
       }
     }
